@@ -661,13 +661,70 @@ function desSelecao() {
 
 /* ------------------------------------------------------- histórico -------- */
 function marcar() { pilha.push(JSON.stringify(doc)); if (pilha.length > 80) pilha.shift(); pilhaR = []; }
-function commit() { salvarLocal(); render(); painel(); }
+function commit() { salvarLocal(); render(); painel(); agendarEnvioNuvem(); }
 function desfazer() { if (!pilha.length) return; pilhaR.push(JSON.stringify(doc)); doc = JSON.parse(pilha.pop()); sel = null; commit(); }
 function refazer() { if (!pilhaR.length) return; pilha.push(JSON.stringify(doc)); doc = JSON.parse(pilhaR.pop()); sel = null; commit(); }
 function salvarLocal() { try { localStorage.setItem(CHAVE, JSON.stringify(doc)); } catch (e) {} }
 function carregarLocal() {
   try { var s = localStorage.getItem(CHAVE); if (s) { var d = JSON.parse(s); if (d && d.paredes) doc = migrar(d); } } catch (e) {}
 }
+
+/* ================================================================
+   SINCRONIZAÇÃO EM TEMPO REAL — /api/planta (Vercel Blob, sem banco)
+   Guarda o estado atual na nuvem e verifica por atualizações a cada
+   poucos segundos. Se a API não existir (ex: abrindo o arquivo direto
+   com duplo clique, sem servidor), falha em silêncio e o app segue
+   funcionando só com localStorage, como antes.
+   ================================================================ */
+var API_NUVEM = '/api/planta';
+var POLL_MS = 3000, DEBOUNCE_MS = 1200;
+var temporizadorEnvio = null, ultimoTsEnviado = 0, nuvemDisponivel = true;
+
+function statusNuvem(txt, classe) {
+  var el = $('#stNuvem'); if (!el) return;
+  el.textContent = txt; el.className = 'nuvem' + (classe ? ' ' + classe : '');
+}
+
+function agendarEnvioNuvem() {
+  doc._ts = Date.now();
+  if (temporizadorEnvio) clearTimeout(temporizadorEnvio);
+  temporizadorEnvio = setTimeout(enviarNuvem, DEBOUNCE_MS);
+  statusNuvem('salvando…', 'salvando');
+}
+
+function enviarNuvem() {
+  temporizadorEnvio = null;
+  var tsEnviado = doc._ts;
+  fetch(API_NUVEM, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(doc)
+  }).then(function (r) { return r.json(); }).then(function (r) {
+    if (!r || !r.ok) throw 0;
+    nuvemDisponivel = true; ultimoTsEnviado = tsEnviado;
+    statusNuvem('sincronizado ✓', 'ok');
+  }).catch(function () {
+    nuvemDisponivel = false;
+    statusNuvem('sem conexão com a nuvem', 'erro');
+  });
+}
+
+function buscarNuvem(inicial) {
+  fetch(API_NUVEM, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (r) {
+    nuvemDisponivel = true;
+    if (!r || !r.ok || r.vazio || !r.doc || !r.doc.paredes) { statusNuvem(inicial ? '—' : 'sincronizado ✓', inicial ? '' : 'ok'); return; }
+    var remoto = r.doc, tsRemoto = remoto._ts || 0;
+    // não pisa em cima de uma edição local mais nova, nem se aplica a si mesmo
+    if (!inicial && (tsRemoto <= (doc._ts || 0) || tsRemoto === ultimoTsEnviado)) { statusNuvem('sincronizado ✓', 'ok'); return; }
+    if (arraste || desenho) return;               // não troca o chão embaixo do usuário no meio de um arraste
+    doc = migrar(remoto); ultimoTsEnviado = tsRemoto; sel = null;
+    salvarLocal(); render(); painel();
+    if (inicial) enquadrar();
+    statusNuvem(inicial ? 'sincronizado ✓' : 'atualizado de outro aparelho ✓', 'ok');
+  }).catch(function () {
+    nuvemDisponivel = false;
+    statusNuvem(inicial ? 'só neste aparelho (sem nuvem)' : 'sem conexão com a nuvem', inicial ? '' : 'erro');
+  });
+}
+setInterval(function () { buscarNuvem(false); }, POLL_MS);
 
 /* ------------------------------------------------------- coordenadas ------ */
 function mundo(ev) {
@@ -1418,5 +1475,6 @@ setTool('selecionar');
 render();
 enquadrar();
 painel();
+buscarNuvem(true);   // busca a versão mais recente assim que a página abre
 
 })();

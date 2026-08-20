@@ -75,10 +75,14 @@ kbd{background:#f0f2f6;border:1px solid var(--linha);border-bottom-width:2px;bor
 #svg.mao{cursor:grab}
 #svg.desenhando{cursor:crosshair}
 #status{
-  position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
+  position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:10px;
   padding:4px 10px;font-size:12px;color:var(--suave);
   background:rgba(255,255,255,.9);border-top:1px solid var(--linha);pointer-events:none;
 }
+.nuvem{flex:1;text-align:center}
+.nuvem.ok{color:#1a8a4a}
+.nuvem.salvando{color:var(--azul)}
+.nuvem.erro{color:var(--perigo)}
 
 /* ---------- propriedades ---------- */
 #formProps .grupo{margin-bottom:10px}

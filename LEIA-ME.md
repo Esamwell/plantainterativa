@@ -52,17 +52,26 @@ Roda do mouse = zoom · arrastar o vazio = mover a vista
 - **↺ Último publicado** volta para o layout publicado mais recente (o mesmo que abre em qualquer aparelho).
 - **↺ Planta original (sem móveis)** volta para a planta bem do início, nua, como foi enviada.
 
-## Por que no celular aparecia diferente do computador
+## Sincronização entre aparelhos (tempo real)
 
-O trabalho fica salvo sozinho, mas **só dentro daquele navegador específico** (é a memória local dele, não um arquivo). Por isso, ao abrir em outro aparelho, ele não sabia o que você tinha editado no primeiro — e mostrava sempre o ponto de partida padrão da página.
+Editar no computador e o celular atualizar sozinho, sem precisar mandar arquivo pra ninguém: qualquer edição é salva na nuvem ~1,2s depois de parar de mexer, e cada aparelho aberto confere por atualizações a cada 3s. Sem banco de dados — usa o **Vercel Blob** (armazenamento de arquivo simples, já dentro da própria conta Vercel do projeto).
 
-Não existe (ainda) sincronização automática entre aparelhos — esta ferramenta não tem um servidor/banco de dados por trás, só HTML/JS. O que existe é um **"último publicado"**: o layout que está embutido na própria página, e que é sempre o mesmo em qualquer navegador ou aparelho que abrir a página hospedada.
+Na barra de baixo do editor aparece o status: `salvando…`, `sincronizado ✓`, `atualizado de outro aparelho ✓`, ou `sem conexão com a nuvem` (se ficar offline, continua funcionando 100% local, só não sincroniza até voltar).
 
-Pra atualizar esse "publicado" com um novo layout seu:
-1. Edite a planta à vontade.
-2. Clique em **💾 Salvar JSON**.
-3. Me envie esse arquivo (ou coloque na pasta do projeto e me avise).
-4. Eu embuto esse layout como o novo padrão e publico — a partir daí, qualquer aparelho que abrir o link já mostra ele.
+### Configuração (só uma vez)
+
+Isso só funciona depois de ligar o **Vercel Blob** no projeto — é gratuito no plano Hobby e são só 2 passos no painel da Vercel:
+
+1. Entre em **vercel.com** → o projeto **plantainterativa** → aba **Storage** → **Create Database** → escolha **Blob** → dê um nome (ex: `planta-dados`) → **Create**.
+2. Na tela seguinte, clique em **Connect to Project** e escolha `plantainterativa`. Isso adiciona sozinho a variável `BLOB_READ_WRITE_TOKEN` no projeto.
+3. Espere o próximo deploy terminar (a Vercel redeploya sozinha quando essa variável muda; se não redeployar em ~1 min, vá em **Deployments** → menu ⋯ do último deploy → **Redeploy**).
+
+Antes desse passo, o app funciona normalmente, só que cada aparelho fica isolado de novo (como estava antes desta conversa). Depois de configurado, é automático — não precisa repetir isso, nem mandar mais JSON pra mim.
+
+### Se algo der errado
+
+- Status fica sempre em `sem conexão com a nuvem`: o Blob provavelmente não foi conectado ainda (passo acima), ou o deploy não pegou a variável nova.
+- Duas pessoas mexendo ao mesmo tempo em aparelhos diferentes: quem salvar por último "ganha" (não existe mesclagem de edições simultâneas) — não é feito pra edição colaborativa em conjunto, é pra você mesmo revezar entre computador e celular.
 
 O site publicado (o mesmo em qualquer aparelho) fica em: **https://plantainterativa.vercel.app**
 

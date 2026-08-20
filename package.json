@@ -1,0 +1,9 @@
+{
+  "name": "planta-interativa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Editor de planta baixa interativo, com sincronização em tempo real via Vercel Blob.",
+  "dependencies": {
+    "@vercel/blob": "^2.8.0"
+  }
+}
