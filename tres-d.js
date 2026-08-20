@@ -302,12 +302,18 @@ function centro(doc) {
   var y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
   return { x: (x0+x1)/2, y: (y0+y1)/2, r: Math.max(x1-x0, y1-y0) };
 }
+/* Câmera em órbita. Convenções, para não inverter de novo:
+   mundo x = x da planta · mundo z = y da planta (sul) · mundo y = altura.
+   A câmera fica do lado sul e SOBE conforme phi cresce, de modo que
+   phi=90° dá a vista de cima na mesma orientação da planta 2D, e pontos
+   mais altos ficam MAIS PERTO da câmera (é o que faz ver o telhado, e
+   não a laje por baixo). */
 function projetar(p) {
-  var dx = p[0] - cam.alvo[0], dy = p[1] - cam.alvo[1], dz = p[2] - cam.alvo[2];
+  var dx = p[0] - cam.alvo[0], dy = p[1] - cam.alvo[1], dz = -(p[2] - cam.alvo[2]);
   var ct = Math.cos(cam.theta), st = Math.sin(cam.theta);
   var x1 = dx*ct - dz*st, z1 = dx*st + dz*ct;
   var cp = Math.cos(cam.phi), sp = Math.sin(cam.phi);
-  var y2 = dy*cp - z1*sp, z2 = dy*sp + z1*cp;
+  var y2 = dy*cp + z1*sp, z2 = -dy*sp + z1*cp;
   var z = z2 + cam.dist;
   return [cv.larg/2 + x1*cam.f/z, cv.alt/2 - y2*cam.f/z, z];
 }
@@ -408,10 +414,11 @@ function dist2(t) { return Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY 
 /* ------------------------------------------------- botões de controle --- */
 function limita(v, a, b) { return v < a ? a : (v > b ? b : v); }
 function panPasso(dx, dy) {
-  var ct = Math.cos(cam.theta), st = Math.sin(cam.theta), k = cam.dist / cam.f;
-  cam.alvo[0] -= (dx*ct + dy*st*Math.sin(cam.phi)) * k;
-  cam.alvo[2] += (dx*st - dy*ct*Math.sin(cam.phi)) * k;
+  var ct = Math.cos(cam.theta), st = Math.sin(cam.theta);
+  var sp = Math.sin(cam.phi), k = cam.dist / cam.f;
+  cam.alvo[0] -= (dx*ct - dy*st*sp) * k;
   cam.alvo[1] += dy * Math.cos(cam.phi) * k;
+  cam.alvo[2] -= (dx*st + dy*ct*sp) * k;
 }
 var ACOES = {
   girarE:    function () { cam.theta -= 0.09; },
@@ -471,10 +478,11 @@ function ligarBotoes() {
 }
 function mover(dx, dy, pan) {
   if (pan) {
-    var ct = Math.cos(cam.theta), st = Math.sin(cam.theta), k = cam.dist / cam.f;
-    cam.alvo[0] = arrastando.alvo[0] - (dx*ct + dy*st*Math.sin(cam.phi)) * k;
-    cam.alvo[2] = arrastando.alvo[2] + (dx*st - dy*ct*Math.sin(cam.phi)) * k;
+    var ct = Math.cos(cam.theta), st = Math.sin(cam.theta);
+    var sp = Math.sin(cam.phi), k = cam.dist / cam.f;
+    cam.alvo[0] = arrastando.alvo[0] - (dx*ct - dy*st*sp) * k;
     cam.alvo[1] = arrastando.alvo[1] + dy * Math.cos(cam.phi) * k;
+    cam.alvo[2] = arrastando.alvo[2] - (dx*st + dy*ct*sp) * k;
   } else {
     cam.theta = arrastando.theta + dx * 0.008;
     cam.phi = Math.max(-0.2, Math.min(1.45, arrastando.phi + dy * 0.006));
