@@ -404,6 +404,71 @@ function ligarEventos() {
   });
 }
 function dist2(t) { return Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY); }
+
+/* ------------------------------------------------- botões de controle --- */
+function limita(v, a, b) { return v < a ? a : (v > b ? b : v); }
+function panPasso(dx, dy) {
+  var ct = Math.cos(cam.theta), st = Math.sin(cam.theta), k = cam.dist / cam.f;
+  cam.alvo[0] -= (dx*ct + dy*st*Math.sin(cam.phi)) * k;
+  cam.alvo[2] += (dx*st - dy*ct*Math.sin(cam.phi)) * k;
+  cam.alvo[1] += dy * Math.cos(cam.phi) * k;
+}
+var ACOES = {
+  girarE:    function () { cam.theta -= 0.09; },
+  girarD:    function () { cam.theta += 0.09; },
+  cima:      function () { cam.phi = limita(cam.phi + 0.06, -0.2, 1.45); },
+  baixo:     function () { cam.phi = limita(cam.phi - 0.06, -0.2, 1.45); },
+  mais:      function () { cam.dist = limita(cam.dist * 0.92, 12, 600); },
+  menos:     function () { cam.dist = limita(cam.dist * 1.08, 12, 600); },
+  esq:       function () { panPasso(-18, 0); },
+  dir:       function () { panPasso(18, 0); },
+  sobe:      function () { panPasso(0, -18); },
+  desce:     function () { panPasso(0, 18); },
+  enquadrar: function () { enquadrar(); }
+};
+var VISTAS = {
+  iso:    { theta: -0.7, phi: 0.62 },
+  topo:   { theta: 0,    phi: 1.45 },
+  frente: { theta: 0,    phi: 0.06 },
+  lado:   { theta: -1.5708, phi: 0.06 }
+};
+function enquadrar() {
+  var c = centro(docAtual);
+  cam.alvo = [c.x, opcoes.altura / 2, c.y];
+  cam.dist = c.r * 1.7;
+}
+function marcarVista(nome) {
+  var bs = document.querySelectorAll('.v3d button');
+  for (var i = 0; i < bs.length; i++)
+    bs[i].classList.toggle('ativa', bs[i].getAttribute('data-v') === nome);
+}
+function ligarBotoes() {
+  var repetidor = null;
+  function parar() { if (repetidor) { clearInterval(repetidor); repetidor = null; } }
+  var pads = document.querySelectorAll('.p3d');
+  for (var i = 0; i < pads.length; i++) (function (b) {
+    var acao = ACOES[b.getAttribute('data-a')];
+    function passo() { acao(); if (b.getAttribute('data-a') !== 'enquadrar') marcarVista(null); desenhar(); }
+    b.addEventListener('pointerdown', function (ev) {
+      ev.preventDefault(); passo();
+      if (b.getAttribute('data-a') === 'enquadrar') return;   // não repete
+      parar(); repetidor = setInterval(passo, 90);
+    });
+    b.addEventListener('pointerup', parar);
+    b.addEventListener('pointerleave', parar);
+    b.addEventListener('pointercancel', parar);
+  })(pads[i]);
+  window.addEventListener('pointerup', parar);
+
+  var vs = document.querySelectorAll('.v3d button');
+  for (var j = 0; j < vs.length; j++) (function (b) {
+    b.addEventListener('click', function () {
+      var v = VISTAS[b.getAttribute('data-v')];
+      cam.theta = v.theta; cam.phi = v.phi;
+      enquadrar(); marcarVista(b.getAttribute('data-v')); desenhar();
+    });
+  })(vs[j]);
+}
 function mover(dx, dy, pan) {
   if (pan) {
     var ct = Math.cos(cam.theta), st = Math.sin(cam.theta), k = cam.dist / cam.f;
@@ -414,6 +479,7 @@ function mover(dx, dy, pan) {
     cam.theta = arrastando.theta + dx * 0.008;
     cam.phi = Math.max(-0.2, Math.min(1.45, arrastando.phi + dy * 0.006));
   }
+  marcarVista(null);
   desenhar();
 }
 
@@ -430,6 +496,8 @@ function abrir(doc) {
     opcoes = { altura: +document.getElementById('alt3d').value, moveis: true, teto: false, vidros: true, folhas: true };
     cam = { theta: -0.7, phi: 0.62, dist: c.r * 1.7, f: 800, alvo: [c.x, opcoes.altura / 2, c.y] };
     ligarEventos();
+    ligarBotoes();
+    marcarVista('iso');
     document.getElementById('alt3d').addEventListener('input', function () {
       opcoes.altura = +this.value;
       document.getElementById('altTxt').textContent = (opcoes.altura / 10).toFixed(2) + ' m';
