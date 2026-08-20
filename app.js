@@ -1390,6 +1390,13 @@ function limites() {
   });
   doc.itens.forEach(function (i) { xs.push(i.x, i.x + (i.w || 0)); ys.push(i.y, i.y + (i.h || 0)); });
   doc.textos.forEach(function (t) { xs.push(t.x); ys.push(t.y); });
+  doc.vaos.forEach(function (v) {
+    var w = parede(v.parede); if (!w) return;
+    var folga = v.w;   // cobre o raio de giro/deslize de qualquer tipo de porta
+    [[v.pos - folga, -(w.t / 2 + folga)], [v.pos + v.w + folga, -(w.t / 2 + folga)],
+     [v.pos - folga, w.t / 2 + folga], [v.pos + v.w + folga, w.t / 2 + folga]]
+    .forEach(function (ts) { var p = pGlobal(w, ts[0], ts[1]); xs.push(p[0]); ys.push(p[1]); });
+  });
   if (!xs.length) { xs = [0, 100]; ys = [0, 100]; }
   return { x0: Math.min.apply(null, xs) - 6, y0: Math.min.apply(null, ys) - 6,
            x1: Math.max.apply(null, xs) + 6, y1: Math.max.apply(null, ys) + 6 };
