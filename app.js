@@ -1462,6 +1462,7 @@ $('#arqJson').addEventListener('change', function (ev) {
   };
   fr.readAsText(f); ev.target.value = '';
 });
+$('#bt3d').addEventListener('click', function () { window.Planta3D.abrir(doc); });
 $('#btImprimir').addEventListener('click', function () {
   var r = svgLimpo();
   var area = $('#areaImpressao');

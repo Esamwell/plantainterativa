@@ -109,10 +109,33 @@ kbd{background:#f0f2f6;border:1px solid var(--linha);border-bottom-width:2px;bor
   aside{width:150px;flex-basis:150px}
 }
 
+/* ---------- visor 3D ---------- */
+#visor3d{
+  position:fixed;inset:0;z-index:50;display:flex;background:#eef1f5;
+}
+#visor3d[hidden]{display:none}
+#tela3d{flex:1;min-width:0;position:relative}
+#cv3d{display:block;width:100%;height:100%;cursor:grab;touch-action:none}
+#cv3d:active{cursor:grabbing}
+#ctrl3d{
+  width:250px;flex:0 0 250px;background:var(--painel);border-left:1px solid var(--linha);
+  padding:14px;overflow:auto;
+}
+.t3d{font-weight:700;font-size:15px;margin-bottom:12px}
+.c3d{display:block;font-size:12.5px;color:var(--suave);margin-bottom:12px}
+.c3d b{color:var(--texto)}
+.c3d input[type=range]{width:100%;margin-top:5px}
+.b3d{display:flex;flex-direction:column;gap:6px;margin:14px 0}
+@media (max-width:760px){
+  #visor3d{flex-direction:column}
+  #ctrl3d{width:auto;flex:0 0 auto;border-left:none;border-top:1px solid var(--linha);max-height:42vh}
+  .b3d{flex-direction:row}
+}
+
 /* ---------- impressão ---------- */
 #areaImpressao{display:none}
 @media print{
-  #topo,#ferramentas,#props,#status,#palco{display:none!important}
+  #topo,#ferramentas,#props,#status,#palco,#visor3d{display:none!important}
   body,main{display:block;height:auto;overflow:visible;background:#fff}
   #areaImpressao{display:block!important}
   #areaImpressao svg{width:100%;height:auto;display:block}

@@ -25,6 +25,7 @@
     <button id="btPng">🖼️ PNG</button>
     <button id="btSvg">📐 SVG</button>
     <button id="btImprimir">🖨️ Imprimir</button>
+    <button id="bt3d" title="Ver a planta em 3D">🧊 Ver em 3D</button>
     <span class="sep"></span>
     <button id="btPadrao" title="Volta para o último layout publicado (o que abre em qualquer aparelho)">↺ Último publicado</button>
     <button id="btOriginal" class="perigo" title="Volta para a planta nua, sem móveis, como foi enviada no início">↺ Planta original (sem móveis)</button>
@@ -86,6 +87,23 @@
 
 <input type="file" id="arqJson" accept=".json,application/json" hidden>
 <div id="areaImpressao"></div>
+
+<div id="visor3d" hidden>
+  <div id="tela3d"><canvas id="cv3d"></canvas></div>
+  <div id="ctrl3d">
+    <div class="t3d">Vista 3D</div>
+    <label class="c3d">Altura da parede <b id="altTxt">2.70 m</b>
+      <input type="range" id="alt3d" min="15" max="40" step="1" value="27"></label>
+    <label class="c3d"><input type="checkbox" id="mov3d" checked> Mostrar móveis</label>
+    <label class="c3d"><input type="checkbox" id="teto3d"> Mostrar teto</label>
+    <div class="b3d">
+      <button id="png3d">🖼️ Salvar PNG</button>
+      <button id="fechar3d">✕ Fechar</button>
+    </div>
+    <p class="dica">Arraste = girar · roda = zoom · Shift+arraste = mover<br>No celular: 1 dedo gira, 2 dedos dão zoom.</p>
+  </div>
+</div>
+<script src="tres-d.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
