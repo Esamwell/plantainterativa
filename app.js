@@ -1455,7 +1455,14 @@ $('#arqJson').addEventListener('change', function (ev) {
   };
   fr.readAsText(f); ev.target.value = '';
 });
-$('#btImprimir').addEventListener('click', function () { window.print(); });
+$('#btImprimir').addEventListener('click', function () {
+  var r = svgLimpo();
+  var area = $('#areaImpressao');
+  area.innerHTML = r.txt;
+  var s = area.querySelector('svg');
+  s.removeAttribute('width'); s.removeAttribute('height');
+  window.print();
+});
 $('#btOriginal').addEventListener('click', function () {
   if (!confirm('Voltar para a planta original, sem móveis (a planta bem do início)? As alterações atuais serão perdidas.')) return;
   marcar(); doc = plantaOriginal(); sel = null; commit(); enquadrar();

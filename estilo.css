@@ -110,8 +110,10 @@ kbd{background:#f0f2f6;border:1px solid var(--linha);border-bottom-width:2px;bor
 }
 
 /* ---------- impressão ---------- */
+#areaImpressao{display:none}
 @media print{
-  #topo,#ferramentas,#props,#status{display:none!important}
-  body,main,#palco{display:block;height:auto;overflow:visible}
-  #svg{width:100%;height:auto}
+  #topo,#ferramentas,#props,#status,#palco{display:none!important}
+  body,main{display:block;height:auto;overflow:visible;background:#fff}
+  #areaImpressao{display:block!important}
+  #areaImpressao svg{width:100%;height:auto;display:block}
 }
