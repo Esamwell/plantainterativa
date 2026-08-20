@@ -22,6 +22,9 @@ var COR = {
   metal:     [172, 176, 182],
   verde:     [92, 138, 84],
   tela:      [46, 49, 56],
+  concreto:  [148, 148, 150],
+  agua:      [118, 178, 208],
+  vermelho:  [188, 74, 62],
   teto:      [248, 247, 244]
 };
 
@@ -63,11 +66,118 @@ var MAT = {
   impressora:  { a: 3.5, b: 7.5, c: 'louca' },
   telefone:    { a: 1.2, b: 7.5, c: 'louca' },
   projetor:    { a: 2.5, b: 7.5, c: 'metal' },
-  tela_projecao:{ a: 12, b: 10,  c: 'tela' }
+  tela_projecao:{ a: 12, b: 10,  c: 'tela' },
+  roteador:    { a: 1,   b: 7.5, c: 'metal' },
+  caixa_som:   { a: 3,   b: 7.5, c: 'tela' },
+  rack_dados:  { a: 20,          c: 'tela' },
+  ventilador:  { a: 12,          c: 'metal' },
+  no_break:    { a: 3,           c: 'tela' },
+  copiadora:   { a: 10,          c: 'metal' },
+  interfone:   { a: 1.5, b: 14,  c: 'louca' },
+  relogio_ponto:{ a: 1.5, b: 14, c: 'louca' },
+  ar_janela:   { a: 3,   b: 16,  c: 'louca' },
+
+  /* mobiliário extra */
+  sofa_chaise: { a: 8,   c: 'estofado', f: 'sofa' },
+  mesa_centro: { a: 4,   c: 'movel' },
+  mesa_lateral:{ a: 5,   c: 'movel' },
+  aparador:    { a: 8,   c: 'movel' },
+  banco:       { a: 4.5, c: 'movel' },
+  banqueta:    { a: 6,   c: 'movel', f: 'cilindro' },
+  puff:        { a: 4,   c: 'estofado', f: 'cilindro' },
+  espelho:     { a: 12,  b: 9,  c: 'vidro' },
+  tapete:      { a: 0.2, c: 'estofado' },
+  cortina:     { a: 22,  b: 2,  c: 'louca' },
+  lareira:     { a: 10,  c: 'concreto' },
+
+  /* quarto */
+  cama_queen:  { a: 5,   c: 'estofado', f: 'cama' },
+  beliche:     { a: 16,  c: 'estofado', f: 'cama' },
+  berco:       { a: 8,   c: 'movel' },
+  comoda:      { a: 8,   c: 'movel' },
+  penteadeira: { a: 7.5, c: 'movel' },
+  guarda_roupa:{ a: 22,  c: 'movel' },
+  arara:       { a: 16,  c: 'metal' },
+  bau:         { a: 4.5, c: 'movel' },
+
+  /* escritório */
+  mesa_escritorio:{ a: 7.5, c: 'movel' },
+  mesa_L:      { a: 7.5, c: 'movel' },
+  cadeira_giratoria:{ a: 9, c: 'estofado', f: 'cadeira' },
+  longarina:   { a: 9,   c: 'estofado', f: 'cadeira' },
+  baia:        { a: 7.5, c: 'movel' },
+  arquivo:     { a: 13,  c: 'metal' },
+  armario_pasta:{ a: 12, c: 'movel' },
+  balcao_atend:{ a: 11,  c: 'movel' },
+  quadro_branco:{ a: 12, b: 9,  c: 'louca' },
+  flip_chart:  { a: 15,  c: 'louca' },
+  cofre:       { a: 4.5, c: 'metal' },
+
+  /* cozinha extra */
+  bancada_cozinha:{ a: 9, c: 'movel' },
+  ilha:        { a: 9,   c: 'movel' },
+  cooktop:     { a: 0.5, b: 9,  c: 'tela' },
+  forno:       { a: 6,   b: 9,  c: 'metal' },
+  freezer:     { a: 9,   c: 'metal' },
+  lava_loucas: { a: 9,   c: 'metal' },
+  secadora:    { a: 9,   c: 'louca' },
+  despensa:    { a: 20,  c: 'movel' },
+  armario_aereo:{ a: 7,  b: 15, c: 'movel' },
+  bebedouro:   { a: 11,  c: 'louca' },
+  lixeira:     { a: 6,   c: 'metal', f: 'cilindro' },
+  churrasqueira:{ a: 12, c: 'concreto' },
+  adega:       { a: 12,  c: 'movel' },
+
+  /* banheiro extra */
+  bide:        { a: 4,   c: 'louca' },
+  mictorio:    { a: 6,   b: 6,  c: 'louca' },
+  cuba_dupla:  { a: 9,   c: 'movel' },
+  box_canto:   { a: 20,  c: 'vidro', f: 'box' },
+  chuveiro:    { a: 1.5, b: 20, c: 'metal' },
+  hidro:       { a: 6,   c: 'louca' },
+  espelho_bh:  { a: 10,  b: 10, c: 'vidro' },
+  ralo:        { a: 0.2, c: 'metal' },
+
+  /* hidráulica */
+  caixa_dagua: { a: 12,  c: 'louca', f: 'cilindro' },
+  aquecedor:   { a: 6,   b: 12, c: 'metal' },
+  bomba:       { a: 3,   c: 'metal' },
+
+  /* estrutura — sobem até o teto */
+  pilar_ret:   { c: 'concreto', parede: true },
+  pilar_circ:  { c: 'concreto', parede: true, f: 'cilindro' },
+  shaft:       { c: 'concreto', parede: true },
+  viga:        { c: 'concreto', vigaTeto: true },
+
+  /* área externa */
+  carro:       { a: 15,  c: 'estofado' },
+  moto:        { a: 12,  c: 'estofado' },
+  arvore:      { a: 35,  c: 'verde', f: 'cilindro' },
+  arbusto:     { a: 8,   c: 'verde', f: 'cilindro' },
+  piscina:     { a: 0.4, c: 'agua' },
+  deck:        { a: 1,   c: 'movel' },
+  portao:      { a: 18,  c: 'metal' },
+  mureta:      { a: 8,   c: 'concreto' },
+  poste:       { a: 40,  c: 'metal', f: 'cilindro' },
+  lixeira_ext: { a: 9,   c: 'metal' },
+  bicicletario:{ a: 8,   c: 'metal' },
+
+  /* segurança e outros */
+  extintor:    { a: 6,   c: 'vermelho', f: 'cilindro' },
+  pessoa:      { a: 17,  c: 'estofado', f: 'cilindro' },
+  rampa:       { a: 1,   c: 'concreto' },
+  corrimao:    { a: 9,   c: 'metal' },
+  elevador:    { c: 'concreto', parede: true }
 };
 /* símbolos que só fazem sentido no 2D (elétrica, anotações) */
 var PULAR = { norte:1, hachura:1, coifa:1, ponto_luz:1, luminaria:1, spot:1,
-              quadro:1, ar_split:1, ponto_rede:1, ponto_tv:1, campainha:1 };
+              quadro:1, ar_split:1, ponto_rede:1, ponto_tv:1, campainha:1,
+              tomada_piso:1, arandela:1, pendente:1, trilho_spot:1, sensor:1,
+              ventilador_teto:1, exaustor:1, luz_emergencia:1, quadro_dados:1,
+              registro:1, hidrometro:1, caixa_gordura:1, caixa_inspecao:1,
+              ralo_linear:1, torneira_jardim:1,
+              hidrante:1, saida_emerg:1, alarme:1, camera_seg:1, detector_fumaca:1,
+              vaga:1, pergolado:1, seta:1, cota_nivel:1 };
 
 /* ------------------------------------------------------------- vetores -- */
 function normalizar(v) {
@@ -226,7 +336,7 @@ function montar(doc, opc) {
     });
   });
 
-  if (opc.moveis) doc.itens.forEach(function (it) { movel(faces, it); });
+  if (opc.moveis) doc.itens.forEach(function (it) { movel(faces, it, H); });
   return faces;
 }
 
@@ -256,11 +366,25 @@ function meiaFolha(faces, w, hx, dir, larg, lado, ang, esp, h) {
     [hx + dir*larg*Math.cos(ang), lado*larg*Math.sin(ang)], esp, 0, h, COR.porta);
 }
 
-function movel(faces, it) {
+function movel(faces, it, H) {
   if (it.tipo !== 'bloco' || PULAR[it.bloco]) return;
   var m = MAT[it.bloco] || { a: 8, c: 'movel' };
   var rgb = COR[m.c] || COR.movel, alfa = m.c === 'vidro' ? 0.4 : 1;
   var b = m.b || 0;                       // altura em que a peça se apoia
+  var alt = m.a;
+
+  if (m.parede) { b = 0; alt = H; }                       // pilar, shaft: piso ao teto
+  else if (m.vigaTeto) { alt = 3.5; b = Math.max(0, H - alt); }   // viga encostada no teto
+  if (m.parede && m.f === 'cilindro') {
+    var ccx = it.x + it.w/2, ccy = it.y + it.h/2, nn = 20, bs = [];
+    for (var q = 0; q < nn; q++) {
+      var tq = q/nn * Math.PI * 2;
+      bs.push([ccx + Math.cos(tq)*it.w/2, ccy + Math.sin(tq)*it.h/2]);
+    }
+    prisma(faces, bs, 0, alt, rgb, alfa);
+    return;
+  }
+  if (m.parede || m.vigaTeto) { prisma(faces, cantosBloco(it), b, b + alt, rgb, alfa); return; }
 
   if (m.f === 'computador') {
     prisma(faces, subRet(it, 0.05, 0, 0.95, 0.13), b, b + m.a, rgb);            // monitor

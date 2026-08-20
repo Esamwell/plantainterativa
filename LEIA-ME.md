@@ -28,9 +28,26 @@ as duas portas, a bancada da estação de trabalho, a tomada isolada, o quadro d
 
 Depois de colocada, seleciona o vão e no painel da direita dá pra: trocar o tipo a qualquer momento (o dropdown "Tipo" reaproveita a mesma abertura), mudar largura e ângulo, e inverter o lado da dobradiça / sentido de abertura. Arrastando, o vão desliza pela parede ou pula pra outra.
 
-### Blocos (mobiliário, eletrônicos, cozinha, banheiro, elétrica, outros)
+### Biblioteca de blocos (156 símbolos, 12 categorias)
 
-Escolha a categoria e clique no bloco desejado (mesa, sofá, cama, pia, vaso sanitário, box, televisão, computador, notebook, impressora, tomada, interruptor, ponto de luz, ar-condicionado, escada, seta de norte etc.), depois clique na planta — ou arraste pra já nascer do tamanho que você quiser. Com o bloco selecionado dá pra trocá-lo por outro do catálogo, redimensionar pelas alças, **girar 90°**, **espelhar**, e escrever um rótulo.
+Escolha a categoria no menu e clique no bloco desejado, depois clique na planta — ou arraste pra já nascer do tamanho que você quiser. Com o bloco selecionado dá pra trocá-lo por outro do catálogo, redimensionar pelas alças, **girar 90°**, **espelhar**, e escrever um rótulo.
+
+| Categoria | O que tem |
+|---|---|
+| **Mobiliário** | mesas (comum, redonda, centro, lateral), sofás (2, 3 lugares e chaise), poltrona, puff, banco, banqueta, estante, rack, aparador, armário, espelho, tapete, cortina, lareira |
+| **Quarto** | camas (solteiro, casal, queen/king), beliche, berço, criado-mudo, cômoda, penteadeira, guarda-roupa, arara, baú |
+| **Escritório** | mesa de escritório, mesa em L, mesa de reunião, baia, cadeira giratória, longarina, arquivo, armário de pastas, balcão de atendimento, quadro branco, flip chart, cofre |
+| **Eletrônicos** | televisão, monitor, computador, gabinete, notebook, impressora, copiadora, telefone, projetor, tela de projeção, roteador, caixa de som, rack de dados, nobreak, ventilador, interfone, relógio de ponto, ar de janela |
+| **Cozinha** | pia, bancada, ilha, fogão, cooktop, forno, coifa, micro-ondas, geladeira, freezer, adega, lava-louças, máquina de lavar, secadora, tanque, despensa, armário aéreo, bebedouro, lixeira, churrasqueira |
+| **Banheiro** | vaso, bidê, mictório, lavatório, bancada com cuba (simples e dupla), box, box de canto, chuveiro, banheira, hidromassagem, espelho, ralo |
+| **Elétrica** | tomada (1 a 12), tomada de piso, interruptor, ponto de luz, luminária, spot, trilho de spots, pendente, arandela, ventilador de teto, exaustor, sensor de presença, luz de emergência, quadro elétrico, quadro de dados, ar-condicionado, ponto de rede, ponto de TV, campainha |
+| **Hidráulica** | registro, hidrômetro, caixa d'água, aquecedor/boiler, bomba, caixa de gordura, caixa de inspeção, ralo linear, torneira de jardim |
+| **Estrutura** | pilar retangular, pilar circular, viga, shaft/duto |
+| **Área externa** | carro, moto, vaga de garagem, árvore, arbusto, piscina, deck, pergolado, portão, mureta, poste, lixeira externa, bicicletário |
+| **Segurança** | extintor, hidrante, saída de emergência, alarme, câmera, detector de fumaça |
+| **Outros** | escada, rampa, corrimão, elevador, vaso de planta, pessoa (escala), seta, cota de nível, norte, área hachurada |
+
+Quase todos aparecem também no **3D**, cada um com sua altura real (o monitor fica em cima da mesa, o armário aéreo na altura certa, o pilar vai do piso ao teto). Os que são só anotação de projeto — símbolos de elétrica, hidráulica, setas, câmeras, marcações — aparecem só no 2D, como manda a convenção de projeto.
 
 ### 🧩 Organizar objetos
 

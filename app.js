@@ -172,7 +172,7 @@ var BLOCOS = {
     g.appendChild(_r(0, 0, w, h, Math.min(w, h) * 0.08)); }},
   mesa_redonda: { cat: 'Mobiliário', nome: 'Mesa redonda', w: 10, h: 10, d: function (g, w, h) {
     g.appendChild(_e(w / 2, h / 2, w / 2, h / 2)); }},
-  mesa_reuniao: { cat: 'Mobiliário', nome: 'Mesa de reunião', w: 22, h: 10, d: function (g, w, h) {
+  mesa_reuniao: { cat: 'Escritório', nome: 'Mesa de reunião', w: 22, h: 10, d: function (g, w, h) {
     g.appendChild(_r(0, 0, w, h, h / 2.6));
     for (var i = 0; i < 3; i++) {
       g.appendChild(_r(w * (0.18 + i * 0.28), -h * 0.28, w * 0.16, h * 0.24));
@@ -184,9 +184,9 @@ var BLOCOS = {
   sofa2: { cat: 'Mobiliário', nome: 'Sofá 2 lugares', w: 15, h: 8, d: sofa },
   sofa3: { cat: 'Mobiliário', nome: 'Sofá 3 lugares', w: 21, h: 8, d: sofa },
   poltrona: { cat: 'Mobiliário', nome: 'Poltrona', w: 8, h: 8, d: sofa },
-  cama_solteiro: { cat: 'Mobiliário', nome: 'Cama solteiro', w: 9, h: 19, d: cama },
-  cama_casal: { cat: 'Mobiliário', nome: 'Cama casal', w: 14, h: 19, d: cama },
-  criado: { cat: 'Mobiliário', nome: 'Criado-mudo', w: 4.5, h: 4, d: function (g, w, h) {
+  cama_solteiro: { cat: 'Quarto', nome: 'Cama solteiro', w: 9, h: 19, d: cama },
+  cama_casal: { cat: 'Quarto', nome: 'Cama casal', w: 14, h: 19, d: cama },
+  criado: { cat: 'Quarto', nome: 'Criado-mudo', w: 4.5, h: 4, d: function (g, w, h) {
     g.appendChild(_r(0, 0, w, h)); g.appendChild(_l(0, h * 0.75, w, h * 0.75)); }},
   armario: { cat: 'Mobiliário', nome: 'Armário', w: 12, h: 6, d: function (g, w, h) {
     g.appendChild(_r(0, 0, w, h));
@@ -198,6 +198,112 @@ var BLOCOS = {
   rack: { cat: 'Mobiliário', nome: 'Rack / TV', w: 14, h: 4, d: function (g, w, h) {
     g.appendChild(_r(0, h * 0.35, w, h * 0.65));
     g.appendChild(_l(w * 0.2, 0, w * 0.8, 0, 1.4)); }},
+  sofa_chaise: { cat: 'Mobiliário', nome: 'Sofá com chaise', w: 21, h: 14, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h * 0.57, 1));
+    g.appendChild(_r(0, h * 0.57, w * 0.45, h * 0.43, 1));
+    g.appendChild(_r(w * 0.1, h * 0.16, w * 0.86, h * 0.36, 0.6));
+    g.appendChild(_l(w * 0.1, h * 0.16, w * 0.1, h * 0.9)); }},
+  mesa_centro: { cat: 'Mobiliário', nome: 'Mesa de centro', w: 9, h: 5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.6)); }},
+  mesa_lateral: { cat: 'Mobiliário', nome: 'Mesa lateral', w: 4.5, h: 4.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.5)); }},
+  aparador: { cat: 'Mobiliário', nome: 'Aparador', w: 12, h: 4, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_l(0, h * 0.72, w, h * 0.72));
+    g.appendChild(_l(w / 2, h * 0.72, w / 2, h)); }},
+  banco: { cat: 'Mobiliário', nome: 'Banco', w: 12, h: 3.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.3)); }},
+  banqueta: { cat: 'Mobiliário', nome: 'Banqueta', w: 3.5, h: 3.5, d: function (g, w, h) {
+    g.appendChild(_e(w / 2, h / 2, w / 2, h / 2)); }},
+  puff: { cat: 'Mobiliário', nome: 'Puff', w: 4.5, h: 4.5, d: function (g, w, h) {
+    g.appendChild(_e(w / 2, h / 2, w / 2, h / 2));
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.22)); }},
+  espelho: { cat: 'Mobiliário', nome: 'Espelho', w: 8, h: 0.9, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    for (var i = 1; i < 5; i++) g.appendChild(_l(w * i / 5, h, w * i / 5 - h, 0, 0.5)); }},
+  tapete: { cat: 'Mobiliário', nome: 'Tapete', w: 16, h: 11, d: function (g, w, h) {
+    g.appendChild(_rt(0, 0, w, h));
+    g.appendChild(_rt(w * 0.06, h * 0.09, w * 0.88, h * 0.82)); }},
+  cortina: { cat: 'Mobiliário', nome: 'Cortina', w: 14, h: 1, d: function (g, w, h) {
+    var d = 'M0 ' + (h / 2), n = 10;
+    for (var i = 0; i < n; i++)
+      d += ' Q ' + (w * (i + 0.5) / n) + ' ' + (i % 2 ? 0 : h) + ' ' + (w * (i + 1) / n) + ' ' + (h / 2);
+    g.appendChild(_p(d)); }},
+  lareira: { cat: 'Mobiliário', nome: 'Lareira', w: 8, h: 3, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_p('M' + (w * 0.2) + ' ' + h + ' Q ' + (w / 2) + ' ' + (h * 0.2) + ' ' + (w * 0.8) + ' ' + h)); }},
+
+  /* ---------------- quarto ---------------- */
+  cama_queen: { cat: 'Quarto', nome: 'Cama queen/king', w: 17, h: 20, d: cama },
+  beliche: { cat: 'Quarto', nome: 'Beliche', w: 9, h: 19, d: function (g, w, h) {
+    cama(g, w, h);
+    g.appendChild(_rt(w * 0.1, h * 0.05, w * 0.8, h * 0.9)); }},
+  berco: { cat: 'Quarto', nome: 'Berço', w: 7, h: 13, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.8));
+    for (var i = 1; i < 6; i++) g.appendChild(_l(0, h * i / 6, w, h * i / 6, 0.5)); }},
+  comoda: { cat: 'Quarto', nome: 'Cômoda', w: 10, h: 5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    for (var i = 1; i < 3; i++) g.appendChild(_l(w * i / 3, 0, w * i / 3, h));
+    g.appendChild(_l(0, h * 0.78, w, h * 0.78, 0.6)); }},
+  penteadeira: { cat: 'Quarto', nome: 'Penteadeira', w: 10, h: 4.5, d: function (g, w, h) {
+    g.appendChild(_r(0, h * 0.25, w, h * 0.75));
+    g.appendChild(_r(w * 0.12, 0, w * 0.76, h * 0.2)); }},
+  guarda_roupa: { cat: 'Quarto', nome: 'Guarda-roupa', w: 18, h: 6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_l(0, h * 0.78, w, h * 0.78));
+    for (var i = 1; i < 3; i++) g.appendChild(_l(w * i / 3, h * 0.78, w * i / 3, h)); }},
+  arara: { cat: 'Quarto', nome: 'Arara / cabideiro', w: 10, h: 5, d: function (g, w, h) {
+    g.appendChild(_rt(0, 0, w, h));
+    g.appendChild(_l(w * 0.05, h / 2, w * 0.95, h / 2, 1.3)); }},
+  bau: { cat: 'Quarto', nome: 'Baú', w: 9, h: 4, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.4));
+    g.appendChild(_l(0, h / 2, w, h / 2, 0.6)); }},
+
+  /* ---------------- escritório ---------------- */
+  mesa_escritorio: { cat: 'Escritório', nome: 'Mesa de escritório', w: 14, h: 7, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_l(0, h * 0.82, w * 0.35, h * 0.82, 0.6)); }},
+  mesa_L: { cat: 'Escritório', nome: 'Mesa em L', w: 16, h: 16, d: function (g, w, h) {
+    g.appendChild(el('polygon', { points: [
+      '0,0', w + ',0', w + ',' + (h * 0.42), (w * 0.42) + ',' + (h * 0.42),
+      (w * 0.42) + ',' + h, '0,' + h].join(' '),
+      fill: '#fff', stroke: '#000', 'stroke-width': LW })); }},
+  cadeira_giratoria: { cat: 'Escritório', nome: 'Cadeira giratória', w: 5.5, h: 5.5, d: function (g, w, h) {
+    g.appendChild(_e(w / 2, h * 0.58, w * 0.44, h * 0.4));
+    g.appendChild(_r(w * 0.08, 0, w * 0.84, h * 0.2, 0.3));
+    g.appendChild(_c(w / 2, h * 0.58, Math.min(w, h) * 0.1)); }},
+  longarina: { cat: 'Escritório', nome: 'Longarina (3 lugares)', w: 15, h: 5, d: function (g, w, h) {
+    g.appendChild(_r(0, h * 0.2, w, h * 0.8));
+    g.appendChild(_r(w * 0.03, 0, w * 0.94, h * 0.2));
+    for (var i = 1; i < 3; i++) g.appendChild(_l(w * i / 3, h * 0.2, w * i / 3, h)); }},
+  baia: { cat: 'Escritório', nome: 'Baia / estação', w: 14, h: 14, d: function (g, w, h) {
+    g.appendChild(el('polygon', { points: [
+      '0,0', w + ',0', w + ',' + (h * 0.38), (w * 0.38) + ',' + (h * 0.38),
+      (w * 0.38) + ',' + h, '0,' + h].join(' '),
+      fill: '#fff', stroke: '#000', 'stroke-width': LW }));
+    g.appendChild(_tr(0, -0.6, w, -0.6));
+    g.appendChild(_tr(-0.6, 0, -0.6, h)); }},
+  arquivo: { cat: 'Escritório', nome: 'Arquivo / gaveteiro', w: 4.5, h: 6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    for (var i = 1; i < 4; i++) g.appendChild(_l(0, h * i / 4, w, h * i / 4, 0.6)); }},
+  armario_pasta: { cat: 'Escritório', nome: 'Armário de pastas', w: 10, h: 4.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    for (var i = 1; i < 5; i++) g.appendChild(_l(w * i / 5, 0, w * i / 5, h, 0.5)); }},
+  balcao_atend: { cat: 'Escritório', nome: 'Balcão de atendimento', w: 18, h: 6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_l(0, h * 0.55, w, h * 0.55));
+    g.appendChild(_l(w * 0.1, h * 0.55, w * 0.1, h)); }},
+  quadro_branco: { cat: 'Escritório', nome: 'Quadro branco', w: 14, h: 1, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_l(w * 0.05, h * 0.5, w * 0.95, h * 0.5, 0.5)); }},
+  flip_chart: { cat: 'Escritório', nome: 'Flip chart', w: 5, h: 4, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h * 0.35));
+    g.appendChild(_l(w * 0.5, h * 0.35, w * 0.15, h));
+    g.appendChild(_l(w * 0.5, h * 0.35, w * 0.85, h)); }},
+  cofre: { cat: 'Escritório', nome: 'Cofre', w: 4.5, h: 4.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_c(w * 0.62, h / 2, Math.min(w, h) * 0.2));
+    g.appendChild(_l(w * 0.15, h * 0.12, w * 0.15, h * 0.88, 0.6)); }},
 
   /* ---------------- eletrônicos ---------------- */
   tv: { cat: 'Eletrônicos', nome: 'Televisão', w: 12, h: 1.6, d: function (g, w, h) {
@@ -238,6 +344,45 @@ var BLOCOS = {
   tela_projecao: { cat: 'Eletrônicos', nome: 'Tela de projeção', w: 16, h: 1.2, d: function (g, w, h) {
     g.appendChild(_r(0, 0, w, h));
     g.appendChild(_l(0, h * 0.5, w, h * 0.5, 0.6)); }},
+  roteador: { cat: 'Eletrônicos', nome: 'Roteador / Wi-Fi', w: 3.2, h: 2.4, d: function (g, w, h) {
+    g.appendChild(_r(0, h * 0.35, w, h * 0.65, 0.2));
+    g.appendChild(_l(w * 0.25, h * 0.35, w * 0.12, 0, 0.6));
+    g.appendChild(_l(w * 0.75, h * 0.35, w * 0.88, 0, 0.6)); }},
+  caixa_som: { cat: 'Eletrônicos', nome: 'Caixa de som', w: 3, h: 3, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_c(w / 2, h * 0.6, Math.min(w, h) * 0.26));
+    g.appendChild(_c(w / 2, h * 0.2, Math.min(w, h) * 0.1)); }},
+  rack_dados: { cat: 'Eletrônicos', nome: 'Rack de dados', w: 6, h: 6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    for (var i = 1; i < 5; i++) g.appendChild(_l(w * 0.1, h * i / 5, w * 0.9, h * i / 5, 0.5)); }},
+  ventilador: { cat: 'Eletrônicos', nome: 'Ventilador', w: 5, h: 5, d: function (g, w, h) {
+    var r = Math.min(w, h) / 2;
+    g.appendChild(_c(w / 2, h / 2, r));
+    for (var i = 0; i < 3; i++) {
+      var a = i * 2.094;
+      g.appendChild(_l(w / 2, h / 2, w / 2 + Math.cos(a) * r * 0.9, h / 2 + Math.sin(a) * r * 0.9, 0.7));
+    } }},
+  no_break: { cat: 'Eletrônicos', nome: 'Nobreak', w: 4, h: 3, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_l(w * 0.4, h * 0.2, w * 0.28, h * 0.55, 0.7));
+    g.appendChild(_l(w * 0.28, h * 0.55, w * 0.6, h * 0.45, 0.7));
+    g.appendChild(_l(w * 0.6, h * 0.45, w * 0.45, h * 0.8, 0.7)); }},
+  copiadora: { cat: 'Eletrônicos', nome: 'Copiadora / multifuncional', w: 7, h: 6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.3));
+    g.appendChild(_r(w * 0.1, h * 0.06, w * 0.8, h * 0.22, 0.2));
+    g.appendChild(_l(0, h * 0.55, w, h * 0.55, 0.6));
+    g.appendChild(_r(w * 0.15, h * 0.7, w * 0.7, h * 0.2, 0.2)); }},
+  interfone: { cat: 'Eletrônicos', nome: 'Interfone', w: 2.6, h: 2, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.2));
+    g.appendChild(_c(w / 2, h * 0.4, Math.min(w, h) * 0.18));
+    g.appendChild(_l(w * 0.2, h * 0.78, w * 0.8, h * 0.78, 0.5)); }},
+  relogio_ponto: { cat: 'Eletrônicos', nome: 'Relógio de ponto', w: 3, h: 2.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.2));
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.28));
+    g.appendChild(_l(w / 2, h / 2, w / 2, h * 0.32, 0.5)); }},
+  ar_janela: { cat: 'Eletrônicos', nome: 'Ar de janela', w: 6, h: 3, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    for (var i = 1; i < 4; i++) g.appendChild(_l(w * 0.1, h * i / 4, w * 0.9, h * i / 4, 0.5)); }},
 
   /* ---------------- cozinha e serviço ---------------- */
   pia_cozinha: { cat: 'Cozinha', nome: 'Pia de cozinha', w: 14, h: 6, d: function (g, w, h) {
@@ -265,6 +410,54 @@ var BLOCOS = {
   tanque: { cat: 'Cozinha', nome: 'Tanque', w: 5.5, h: 6.5, d: function (g, w, h) {
     g.appendChild(_r(0, 0, w, h)); g.appendChild(_r(w * 0.12, h * 0.28, w * 0.76, h * 0.6, 0.4));
     g.appendChild(_c(w / 2, h * 0.58, 0.5)); }},
+  bancada_cozinha: { cat: 'Cozinha', nome: 'Bancada', w: 20, h: 6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_l(0, h * 0.86, w, h * 0.86, 0.6)); }},
+  ilha: { cat: 'Cozinha', nome: 'Ilha', w: 14, h: 8, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_rv(w * 0.06, h * 0.1, w * 0.88, h * 0.8)); }},
+  cooktop: { cat: 'Cozinha', nome: 'Cooktop', w: 6, h: 5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.2));
+    var r = Math.min(w, h) * 0.15;
+    g.appendChild(_c(w * 0.3, h * 0.3, r)); g.appendChild(_c(w * 0.7, h * 0.3, r));
+    g.appendChild(_c(w * 0.3, h * 0.7, r)); g.appendChild(_c(w * 0.7, h * 0.7, r)); }},
+  forno: { cat: 'Cozinha', nome: 'Forno', w: 6, h: 6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_rv(w * 0.12, h * 0.2, w * 0.76, h * 0.6));
+    g.appendChild(_l(w * 0.2, h * 0.1, w * 0.8, h * 0.1, 1.2)); }},
+  freezer: { cat: 'Cozinha', nome: 'Freezer', w: 7, h: 7, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_l(0, h / 2, w, h / 2, 0.6));
+    g.appendChild(_l(w * 0.15, h * 0.9, w * 0.45, h * 0.9, 1.2)); }},
+  lava_loucas: { cat: 'Cozinha', nome: 'Lava-louças', w: 6, h: 6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_c(w / 2, h * 0.55, Math.min(w, h) * 0.26));
+    g.appendChild(_l(0, h * 0.2, w, h * 0.2, 0.6)); }},
+  secadora: { cat: 'Cozinha', nome: 'Secadora', w: 6.5, h: 6.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_c(w / 2, h * 0.55, Math.min(w, h) * 0.3));
+    g.appendChild(_c(w / 2, h * 0.55, Math.min(w, h) * 0.18)); }},
+  despensa: { cat: 'Cozinha', nome: 'Despensa', w: 8, h: 6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    for (var i = 1; i < 4; i++) g.appendChild(_l(0, h * i / 4, w, h * i / 4, 0.5)); }},
+  armario_aereo: { cat: 'Cozinha', nome: 'Armário aéreo (tracejado)', w: 14, h: 3.5, d: function (g, w, h) {
+    g.appendChild(_rt(0, 0, w, h));
+    g.appendChild(_tr(w / 2, 0, w / 2, h)); }},
+  bebedouro: { cat: 'Cozinha', nome: 'Bebedouro', w: 4, h: 3, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.3));
+    g.appendChild(_c(w / 2, h * 0.62, Math.min(w, h) * 0.22));
+    g.appendChild(_l(w * 0.3, h * 0.2, w * 0.7, h * 0.2, 0.6)); }},
+  lixeira: { cat: 'Cozinha', nome: 'Lixeira', w: 3.5, h: 3.5, d: function (g, w, h) {
+    g.appendChild(_e(w / 2, h / 2, w / 2, h / 2));
+    g.appendChild(_l(w * 0.28, h * 0.35, w * 0.72, h * 0.65, 0.6));
+    g.appendChild(_l(w * 0.72, h * 0.35, w * 0.28, h * 0.65, 0.6)); }},
+  churrasqueira: { cat: 'Cozinha', nome: 'Churrasqueira', w: 10, h: 6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_rv(w * 0.08, h * 0.15, w * 0.84, h * 0.6));
+    for (var i = 1; i < 6; i++) g.appendChild(_l(w * 0.08, h * (0.15 + 0.6 * i / 6), w * 0.92, h * (0.15 + 0.6 * i / 6), 0.4)); }},
+  adega: { cat: 'Cozinha', nome: 'Adega', w: 5, h: 5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    for (var i = 1; i < 4; i++) g.appendChild(_l(w * 0.1, h * i / 4, w * 0.9, h * i / 4, 0.5)); }},
 
   /* ---------------- banheiro ---------------- */
   vaso: { cat: 'Banheiro', nome: 'Vaso sanitário', w: 4.5, h: 7, d: function (g, w, h) {
@@ -282,6 +475,40 @@ var BLOCOS = {
     g.appendChild(_rv(0, 0, w, h));
     g.appendChild(_l(0, 0, w, h, 0.6)); g.appendChild(_l(w, 0, 0, h, 0.6));
     g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.13)); }},
+  bide: { cat: 'Banheiro', nome: 'Bidê', w: 4, h: 5.5, d: function (g, w, h) {
+    g.appendChild(_e(w / 2, h * 0.55, w * 0.44, h * 0.42));
+    g.appendChild(_c(w / 2, h * 0.15, 0.45)); }},
+  mictorio: { cat: 'Banheiro', nome: 'Mictório', w: 4, h: 3.5, d: function (g, w, h) {
+    g.appendChild(_p('M0 0 L ' + w + ' 0 L ' + w + ' ' + (h * 0.45) +
+      ' Q ' + (w / 2) + ' ' + (h * 1.25) + ' 0 ' + (h * 0.45) + ' Z', '#fff'));
+    g.appendChild(_c(w / 2, h * 0.3, 0.4)); }},
+  cuba_dupla: { cat: 'Banheiro', nome: 'Bancada 2 cubas', w: 18, h: 5.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_e(w * 0.27, h * 0.55, w * 0.14, h * 0.3));
+    g.appendChild(_e(w * 0.73, h * 0.55, w * 0.14, h * 0.3));
+    g.appendChild(_c(w * 0.27, h * 0.16, 0.45));
+    g.appendChild(_c(w * 0.73, h * 0.16, 0.45)); }},
+  box_canto: { cat: 'Banheiro', nome: 'Box de canto', w: 9, h: 9, d: function (g, w, h) {
+    g.appendChild(_p('M0 ' + h + ' L 0 0 L ' + w + ' 0', '#fff'));
+    g.appendChild(_p('M' + w + ' 0 A ' + w + ' ' + h + ' 0 0 1 0 ' + h));
+    g.appendChild(_c(w * 0.22, h * 0.22, Math.min(w, h) * 0.1)); }},
+  chuveiro: { cat: 'Banheiro', nome: 'Chuveiro', w: 3, h: 3, d: function (g, w, h) {
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.42));
+    g.appendChild(_cf(w / 2, h / 2, Math.min(w, h) * 0.1));
+    for (var i = 0; i < 6; i++) {
+      var a = i * 1.047, r = Math.min(w, h) * 0.26;
+      g.appendChild(_cf(w / 2 + Math.cos(a) * r, h / 2 + Math.sin(a) * r, 0.18));
+    } }},
+  hidro: { cat: 'Banheiro', nome: 'Hidromassagem', w: 18, h: 14, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, Math.min(w, h) * 0.12));
+    g.appendChild(_rv(w * 0.07, h * 0.09, w * 0.86, h * 0.82, Math.min(w, h) * 0.1));
+    for (var i = 0; i < 4; i++) g.appendChild(_c(w * (0.2 + i * 0.2), h * 0.5, 0.5)); }},
+  espelho_bh: { cat: 'Banheiro', nome: 'Espelho de banheiro', w: 8, h: 0.9, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    for (var i = 1; i < 5; i++) g.appendChild(_l(w * i / 5, h, w * i / 5 - h, 0, 0.5)); }},
+  ralo: { cat: 'Banheiro', nome: 'Ralo', w: 2.5, h: 2.5, d: function (g, w, h) {
+    g.appendChild(_rv(0, 0, w, h));
+    g.appendChild(_l(0, 0, w, h, 0.6)); g.appendChild(_l(w, 0, 0, h, 0.6)); }},
   banheira: { cat: 'Banheiro', nome: 'Banheira', w: 17, h: 8, d: function (g, w, h) {
     g.appendChild(_r(0, 0, w, h, h * 0.18));
     g.appendChild(_rv(w * 0.06, h * 0.12, w * 0.88, h * 0.76, h * 0.16));
@@ -314,12 +541,192 @@ var BLOCOS = {
       ' A ' + (w * 0.38) + ' ' + (h * 0.38) + ' 0 0 1 ' + (w * 0.5) + ' ' + (h * 0.12), '#fff'));
     g.appendChild(_cf(w / 2, h * 0.62, 0.4)); }},
 
+  tomada_piso: { cat: 'Elétrica', nome: 'Tomada de piso', w: 4, h: 4, d: function (g, w, h) {
+    g.appendChild(_rv(0, 0, w, h));
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.26));
+    g.appendChild(_l(0, 0, w, h, 0.5)); }},
+  arandela: { cat: 'Elétrica', nome: 'Arandela', w: 4, h: 2.4, d: function (g, w, h) {
+    g.appendChild(_p('M0 ' + h + ' A ' + (w / 2) + ' ' + h + ' 0 0 1 ' + w + ' ' + h + ' Z', '#fff'));
+    g.appendChild(_l(0, h, w, h, 0.8)); }},
+  pendente: { cat: 'Elétrica', nome: 'Pendente', w: 4.5, h: 4.5, d: function (g, w, h) {
+    var r = Math.min(w, h) / 2;
+    g.appendChild(_c(w / 2, h / 2, r));
+    g.appendChild(_cf(w / 2, h / 2, r * 0.22));
+    g.appendChild(_l(w / 2 - r, h / 2, w / 2 + r, h / 2, 0.5)); }},
+  trilho_spot: { cat: 'Elétrica', nome: 'Trilho de spots', w: 12, h: 2, d: function (g, w, h) {
+    g.appendChild(_r(0, h * 0.35, w, h * 0.3));
+    for (var i = 0; i < 3; i++) g.appendChild(_c(w * (0.2 + i * 0.3), h / 2, h * 0.42)); }},
+  sensor: { cat: 'Elétrica', nome: 'Sensor de presença', w: 4, h: 4, d: function (g, w, h) {
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.3));
+    g.appendChild(_p('M' + (w * 0.1) + ' ' + h + ' A ' + (w * 0.5) + ' ' + (h * 0.6) + ' 0 0 1 ' + (w * 0.9) + ' ' + h)); }},
+  ventilador_teto: { cat: 'Elétrica', nome: 'Ventilador de teto', w: 12, h: 12, d: function (g, w, h) {
+    var r = Math.min(w, h) / 2;
+    g.appendChild(_c(w / 2, h / 2, r * 0.2));
+    for (var i = 0; i < 4; i++) {
+      var a = i * 1.5708;
+      g.appendChild(_e(w / 2 + Math.cos(a) * r * 0.6, h / 2 + Math.sin(a) * r * 0.6,
+        Math.abs(Math.cos(a)) * r * 0.42 + 0.5, Math.abs(Math.sin(a)) * r * 0.42 + 0.5));
+    } }},
+  exaustor: { cat: 'Elétrica', nome: 'Exaustor', w: 4, h: 4, d: function (g, w, h) {
+    g.appendChild(_rv(0, 0, w, h));
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.34));
+    g.appendChild(_l(w * 0.15, h * 0.15, w * 0.85, h * 0.85, 0.5));
+    g.appendChild(_l(w * 0.85, h * 0.15, w * 0.15, h * 0.85, 0.5)); }},
+  luz_emergencia: { cat: 'Elétrica', nome: 'Luz de emergência', w: 5, h: 2.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.2));
+    g.appendChild(_c(w * 0.3, h / 2, h * 0.28));
+    g.appendChild(_c(w * 0.7, h / 2, h * 0.28)); }},
+  quadro_dados: { cat: 'Elétrica', nome: 'Quadro de dados', w: 6.5, h: 2.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_tx(w / 2, h / 2 + 0.1, 'QD', h * 0.6)); }},
+
+  /* ---------------- hidráulica ---------------- */
+  registro: { cat: 'Hidráulica', nome: 'Registro', w: 2.6, h: 2.6, d: function (g, w, h) {
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.42));
+    g.appendChild(_l(w * 0.16, h * 0.16, w * 0.84, h * 0.84, 0.6));
+    g.appendChild(_l(w * 0.84, h * 0.16, w * 0.16, h * 0.84, 0.6)); }},
+  hidrometro: { cat: 'Hidráulica', nome: 'Hidrômetro', w: 4, h: 3, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.2));
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.3));
+    g.appendChild(_l(w / 2, h / 2, w * 0.72, h * 0.32, 0.5)); }},
+  caixa_dagua: { cat: 'Hidráulica', nome: "Caixa d'água", w: 12, h: 12, d: function (g, w, h) {
+    g.appendChild(_e(w / 2, h / 2, w / 2, h / 2));
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.35)); }},
+  aquecedor: { cat: 'Hidráulica', nome: 'Aquecedor / boiler', w: 5, h: 4, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.3));
+    g.appendChild(_p('M' + (w * 0.35) + ' ' + (h * 0.75) + ' Q ' + (w * 0.5) + ' ' + (h * 0.2) +
+      ' ' + (w * 0.65) + ' ' + (h * 0.75) + ' Q ' + (w * 0.5) + ' ' + (h * 0.55) + ' ' + (w * 0.35) + ' ' + (h * 0.75))); }},
+  bomba: { cat: 'Hidráulica', nome: 'Bomba', w: 4, h: 3, d: function (g, w, h) {
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.42));
+    g.appendChild(el('polygon', { points: [(w * 0.38) + ',' + (h * 0.28), (w * 0.72) + ',' + (h * 0.5),
+      (w * 0.38) + ',' + (h * 0.72)].join(' '), fill: '#000' })); }},
+  caixa_gordura: { cat: 'Hidráulica', nome: 'Caixa de gordura', w: 5, h: 5, d: function (g, w, h) {
+    g.appendChild(_rv(0, 0, w, h));
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.3));
+    g.appendChild(_tx(w / 2, h * 0.92, 'CG', h * 0.24)); }},
+  caixa_inspecao: { cat: 'Hidráulica', nome: 'Caixa de inspeção', w: 5, h: 5, d: function (g, w, h) {
+    g.appendChild(_rv(0, 0, w, h));
+    g.appendChild(_l(0, 0, w, h, 0.5)); g.appendChild(_l(w, 0, 0, h, 0.5));
+    g.appendChild(_tx(w / 2, h * 0.92, 'CI', h * 0.24)); }},
+  ralo_linear: { cat: 'Hidráulica', nome: 'Ralo linear', w: 12, h: 1.2, d: function (g, w, h) {
+    g.appendChild(_rv(0, 0, w, h));
+    for (var i = 1; i < 12; i++) g.appendChild(_l(w * i / 12, 0, w * i / 12, h, 0.35)); }},
+  torneira_jardim: { cat: 'Hidráulica', nome: 'Torneira de jardim', w: 2.6, h: 2.6, d: function (g, w, h) {
+    g.appendChild(_c(w / 2, h * 0.62, Math.min(w, h) * 0.3));
+    g.appendChild(_l(w / 2, h * 0.32, w / 2, 0, 0.6));
+    g.appendChild(_l(w * 0.25, 0, w * 0.75, 0, 0.6)); }},
+
+  /* ---------------- estrutura ---------------- */
+  pilar_ret: { cat: 'Estrutura', nome: 'Pilar retangular', w: 4, h: 4, d: function (g, w, h) {
+    g.appendChild(el('rect', { x: 0, y: 0, width: w, height: h, fill: '#333', stroke: '#000', 'stroke-width': LW })); }},
+  pilar_circ: { cat: 'Estrutura', nome: 'Pilar circular', w: 4, h: 4, d: function (g, w, h) {
+    g.appendChild(el('ellipse', { cx: w / 2, cy: h / 2, rx: w / 2, ry: h / 2,
+      fill: '#333', stroke: '#000', 'stroke-width': LW })); }},
+  viga: { cat: 'Estrutura', nome: 'Viga (tracejado)', w: 20, h: 2, d: function (g, w, h) {
+    g.appendChild(_rt(0, 0, w, h)); }},
+  shaft: { cat: 'Estrutura', nome: 'Shaft / duto', w: 6, h: 6, d: function (g, w, h) {
+    g.appendChild(_rv(0, 0, w, h));
+    g.appendChild(_l(0, 0, w, h, 0.5)); g.appendChild(_l(w, 0, 0, h, 0.5)); }},
+
+  /* ---------------- área externa ---------------- */
+  carro: { cat: 'Área externa', nome: 'Carro', w: 45, h: 18, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, h * 0.28));
+    g.appendChild(_rv(w * 0.24, h * 0.12, w * 0.3, h * 0.76, h * 0.14));
+    g.appendChild(_l(w * 0.62, h * 0.16, w * 0.62, h * 0.84, 0.6)); }},
+  moto: { cat: 'Área externa', nome: 'Moto', w: 20, h: 8, d: function (g, w, h) {
+    g.appendChild(_e(w * 0.14, h / 2, w * 0.13, h * 0.3));
+    g.appendChild(_e(w * 0.86, h / 2, w * 0.13, h * 0.3));
+    g.appendChild(_r(w * 0.28, h * 0.3, w * 0.44, h * 0.4, h * 0.16)); }},
+  vaga: { cat: 'Área externa', nome: 'Vaga de garagem', w: 25, h: 50, d: function (g, w, h) {
+    g.appendChild(_rt(0, 0, w, h));
+    g.appendChild(_tx(w / 2, h / 2, 'VAGA', Math.min(w, h) * 0.14)); }},
+  arvore: { cat: 'Área externa', nome: 'Árvore', w: 20, h: 20, d: function (g, w, h) {
+    var r = Math.min(w, h) / 2, n = 14, d = '';
+    for (var i = 0; i <= n; i++) {
+      var a = i / n * Math.PI * 2, rr = r * (i % 2 ? 0.82 : 1);
+      d += (i ? 'L' : 'M') + (w / 2 + Math.cos(a) * rr) + ' ' + (h / 2 + Math.sin(a) * rr) + ' ';
+    }
+    g.appendChild(_p(d + 'Z', '#fff'));
+    g.appendChild(_c(w / 2, h / 2, r * 0.16)); }},
+  arbusto: { cat: 'Área externa', nome: 'Arbusto', w: 8, h: 8, d: function (g, w, h) {
+    g.appendChild(_e(w / 2, h / 2, w / 2, h / 2));
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.26)); }},
+  piscina: { cat: 'Área externa', nome: 'Piscina', w: 60, h: 30, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, Math.min(w, h) * 0.08));
+    g.appendChild(_rv(w * 0.04, h * 0.08, w * 0.92, h * 0.84, Math.min(w, h) * 0.06));
+    g.appendChild(_l(w * 0.04, h * 0.75, w * 0.96, h * 0.75, 0.5)); }},
+  deck: { cat: 'Área externa', nome: 'Deck', w: 40, h: 25, d: function (g, w, h) {
+    g.appendChild(_rv(0, 0, w, h));
+    for (var i = 1; i < 10; i++) g.appendChild(_l(0, h * i / 10, w, h * i / 10, 0.4)); }},
+  pergolado: { cat: 'Área externa', nome: 'Pergolado', w: 30, h: 20, d: function (g, w, h) {
+    g.appendChild(_rt(0, 0, w, h));
+    for (var i = 1; i < 8; i++) g.appendChild(_tr(w * i / 8, 0, w * i / 8, h)); }},
+  portao: { cat: 'Área externa', nome: 'Portão', w: 30, h: 1.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    for (var i = 1; i < 8; i++) g.appendChild(_l(w * i / 8, 0, w * i / 8, h, 0.4));
+    _seta(g, w * 0.25, -2.5, w * 0.75, -2.5, 1.6); }},
+  mureta: { cat: 'Área externa', nome: 'Mureta', w: 30, h: 1.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h)); }},
+  poste: { cat: 'Área externa', nome: 'Poste', w: 3, h: 3, d: function (g, w, h) {
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) / 2));
+    g.appendChild(_l(w / 2, 0, w / 2, h, 0.5)); g.appendChild(_l(0, h / 2, w, h / 2, 0.5)); }},
+  lixeira_ext: { cat: 'Área externa', nome: 'Lixeira externa', w: 5, h: 5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.4));
+    g.appendChild(_l(0, h * 0.24, w, h * 0.24, 0.6)); }},
+  bicicletario: { cat: 'Área externa', nome: 'Bicicletário', w: 12, h: 4, d: function (g, w, h) {
+    g.appendChild(_rt(0, 0, w, h));
+    for (var i = 0; i < 4; i++) g.appendChild(_l(w * (0.15 + i * 0.23), h * 0.15, w * (0.15 + i * 0.23), h * 0.85, 0.8)); }},
+
+  /* ---------------- segurança ---------------- */
+  extintor: { cat: 'Segurança', nome: 'Extintor', w: 3, h: 3, d: function (g, w, h) {
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.45));
+    g.appendChild(_tx(w / 2, h / 2 + 0.1, 'E', h * 0.5)); }},
+  hidrante: { cat: 'Segurança', nome: 'Hidrante', w: 4, h: 3, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_tx(w / 2, h / 2 + 0.1, 'H', h * 0.62)); }},
+  saida_emerg: { cat: 'Segurança', nome: 'Saída de emergência', w: 7, h: 2.4, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.2));
+    _seta(g, w * 0.18, h / 2, w * 0.82, h / 2, 0.9); }},
+  alarme: { cat: 'Segurança', nome: 'Alarme', w: 3.2, h: 3.2, d: function (g, w, h) {
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.22));
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.4));
+    g.appendChild(_cf(w / 2, h / 2, Math.min(w, h) * 0.09)); }},
+  camera_seg: { cat: 'Segurança', nome: 'Câmera de segurança', w: 3.6, h: 3, d: function (g, w, h) {
+    g.appendChild(_r(0, h * 0.3, w * 0.6, h * 0.4, 0.2));
+    g.appendChild(el('polygon', { points: [(w * 0.6) + ',' + (h * 0.28), w + ',' + (h * 0.06),
+      w + ',' + (h * 0.94), (w * 0.6) + ',' + (h * 0.72)].join(' '),
+      fill: '#fff', stroke: '#000', 'stroke-width': LW })); }},
+  detector_fumaca: { cat: 'Segurança', nome: 'Detector de fumaça', w: 3.2, h: 3.2, d: function (g, w, h) {
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.45));
+    g.appendChild(_tx(w / 2, h / 2 + 0.1, 'S', h * 0.45)); }},
+
   /* ---------------- outros ---------------- */
   escada: { cat: 'Outros', nome: 'Escada', w: 10, h: 22, d: function (g, w, h) {
     g.appendChild(_rv(0, 0, w, h));
     var n = Math.max(3, Math.round(h / 2.4));
     for (var i = 1; i < n; i++) g.appendChild(_l(0, h * i / n, w, h * i / n, 0.7));
     _seta(g, w / 2, h * 0.9, w / 2, h * 0.1, 1.4); }},
+  pessoa: { cat: 'Outros', nome: 'Pessoa (escala)', w: 4.5, h: 4.5, d: function (g, w, h) {
+    g.appendChild(_e(w / 2, h / 2, w * 0.42, h * 0.42));
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.2)); }},
+  seta: { cat: 'Outros', nome: 'Seta', w: 10, h: 4, d: function (g, w, h) {
+    _seta(g, 0, h / 2, w, h / 2, Math.min(w, h) * 0.45); }},
+  rampa: { cat: 'Outros', nome: 'Rampa', w: 20, h: 10, d: function (g, w, h) {
+    g.appendChild(_rv(0, 0, w, h));
+    for (var i = 1; i < 6; i++) g.appendChild(_l(w * i / 6, 0, w * i / 6, h, 0.4));
+    _seta(g, w * 0.15, h / 2, w * 0.85, h / 2, 1.4); }},
+  corrimao: { cat: 'Outros', nome: 'Corrimão', w: 20, h: 1, d: function (g, w, h) {
+    g.appendChild(_l(0, h * 0.3, w, h * 0.3, 0.8));
+    g.appendChild(_l(0, h * 0.7, w, h * 0.7, 0.8)); }},
+  elevador: { cat: 'Outros', nome: 'Elevador', w: 16, h: 16, d: function (g, w, h) {
+    g.appendChild(_rv(0, 0, w, h));
+    g.appendChild(_l(0, 0, w, h, 0.5)); g.appendChild(_l(w, 0, 0, h, 0.5));
+    g.appendChild(_l(w * 0.35, h, w * 0.35, h * 0.92, 1.2));
+    g.appendChild(_l(w * 0.65, h, w * 0.65, h * 0.92, 1.2)); }},
+  cota_nivel: { cat: 'Outros', nome: 'Cota de nível', w: 6, h: 6, d: function (g, w, h) {
+    g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.4));
+    g.appendChild(_l(w * 0.1, h / 2, w * 0.9, h / 2, 0.5));
+    g.appendChild(_l(w / 2, h * 0.1, w / 2, h * 0.9, 0.5)); }},
   planta: { cat: 'Outros', nome: 'Vaso de planta', w: 6, h: 6, d: function (g, w, h) {
     g.appendChild(_c(w / 2, h / 2, Math.min(w, h) / 2));
     g.appendChild(_c(w / 2, h / 2, Math.min(w, h) * 0.22)); }},
