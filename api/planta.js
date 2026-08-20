@@ -2,11 +2,12 @@
 // GET  -> devolve o último estado salvo (ou {ok:true, vazio:true} se nunca salvou nada)
 // POST -> recebe o JSON da planta e sobrescreve o arquivo salvo
 //
-// Autenticação: funciona tanto com um projeto conectado via OIDC (padrão
-// atual da Vercel — usa BLOB_STORE_ID + token OIDC injetado automaticamente
-// em cada execução) quanto com o token estático BLOB_READ_WRITE_TOKEN
-// (projetos mais antigos). Não force nenhum dos dois: deixa o SDK decidir.
-const { put, head, BlobNotFoundError } = require('@vercel/blob');
+// A store é privada (só quem tem a credencial do projeto lê/escreve), e a
+// autenticação funciona tanto via OIDC (padrão atual da Vercel — token
+// injetado automaticamente a cada execução) quanto via o antigo token
+// estático BLOB_READ_WRITE_TOKEN. Não força nenhum dos dois: deixa o SDK
+// decidir sozinho qual credencial usar.
+const { put, get } = require('@vercel/blob');
 
 const CAMINHO = 'planta-atual.json';
 
@@ -15,17 +16,9 @@ module.exports = async function handler(req, res) {
 
   try {
     if (req.method === 'GET') {
-      var info;
-      try {
-        info = await head(CAMINHO);
-      } catch (e) {
-        if (e instanceof BlobNotFoundError) { res.status(200).json({ ok: true, vazio: true }); return; }
-        throw e;
-      }
-      var sep = info.url.indexOf('?') >= 0 ? '&' : '?';
-      var r = await fetch(info.url + sep + 't=' + Date.now(), { cache: 'no-store' });
-      if (!r.ok) { res.status(200).json({ ok: true, vazio: true }); return; }
-      var doc = await r.json();
+      var resultado = await get(CAMINHO, { access: 'private', useCache: false });
+      if (!resultado || !resultado.stream) { res.status(200).json({ ok: true, vazio: true }); return; }
+      var doc = await new Response(resultado.stream).json();
       res.status(200).json({ ok: true, doc: doc });
       return;
     }
@@ -35,7 +28,7 @@ module.exports = async function handler(req, res) {
       if (typeof body === 'string') body = JSON.parse(body);
       if (!body || !body.paredes) { res.status(400).json({ ok: false, erro: 'JSON inválido: falta "paredes".' }); return; }
       await put(CAMINHO, JSON.stringify(body), {
-        access: 'public',
+        access: 'private',
         addRandomSuffix: false,
         allowOverwrite: true,
         contentType: 'application/json',
