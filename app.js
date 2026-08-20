@@ -709,8 +709,13 @@ function enviarNuvem() {
 
 function buscarNuvem(inicial) {
   fetch(API_NUVEM, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (r) {
+    if (!r || !r.ok) {   // API respondeu, mas com erro (ex: nuvem ainda não configurada)
+      nuvemDisponivel = false;
+      statusNuvem(inicial ? 'só neste aparelho (nuvem não configurada)' : 'nuvem não configurada', inicial ? '' : 'erro');
+      return;
+    }
     nuvemDisponivel = true;
-    if (!r || !r.ok || r.vazio || !r.doc || !r.doc.paredes) { statusNuvem(inicial ? '—' : 'sincronizado ✓', inicial ? '' : 'ok'); return; }
+    if (r.vazio || !r.doc || !r.doc.paredes) { statusNuvem(inicial ? '—' : 'sincronizado ✓', inicial ? '' : 'ok'); return; }
     var remoto = r.doc, tsRemoto = remoto._ts || 0;
     // não pisa em cima de uma edição local mais nova, nem se aplica a si mesmo
     if (!inicial && (tsRemoto <= (doc._ts || 0) || tsRemoto === ultimoTsEnviado)) { statusNuvem('sincronizado ✓', 'ok'); return; }
