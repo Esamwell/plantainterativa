@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Planta Interativa</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<header id="topo">
+  <div class="marca">Planta Interativa</div>
+  <div class="barra">
+    <button id="btUndo" title="Desfazer (Ctrl+Z)">↶ Desfazer</button>
+    <button id="btRedo" title="Refazer (Ctrl+Y)">↷ Refazer</button>
+    <span class="sep"></span>
+    <label class="chk"><input type="checkbox" id="ckGrade" checked> Grade</label>
+    <label class="chk"><input type="checkbox" id="ckSnap" checked> Ímã</label>
+    <label class="chk"><input type="checkbox" id="ckCotas" checked> Cotas</label>
+    <span class="sep"></span>
+    <button id="btZoomFit" title="Enquadrar (F)">⤢ Enquadrar</button>
+    <span class="sep"></span>
+    <button id="btSalvar">💾 Salvar JSON</button>
+    <button id="btAbrir">📂 Abrir JSON</button>
+    <button id="btPng">🖼️ PNG</button>
+    <button id="btSvg">📐 SVG</button>
+    <button id="btImprimir">🖨️ Imprimir</button>
+    <span class="sep"></span>
+    <button id="btOriginal" class="perigo" title="Volta exatamente para a planta enviada">↺ Planta original</button>
+  </div>
+</header>
+
+<main>
+  <aside id="ferramentas">
+    <div class="tituloLat">Ferramentas</div>
+    <button class="ferr ativa" data-tool="selecionar"><b>V</b> Selecionar</button>
+    <button class="ferr" data-tool="parede"><b>W</b> Parede</button>
+    <button class="ferr" data-tool="abertura"><b>P</b> Porta / janela</button>
+    <button class="ferr" data-tool="texto"><b>X</b> Texto</button>
+    <button class="ferr" data-tool="cota"><b>C</b> Cota</button>
+    <button class="ferr" data-tool="apagar"><b>D</b> Apagar</button>
+
+    <div class="tituloLat">Tipo de abertura</div>
+    <select id="tipoVao"></select>
+    <p class="dica">Escolha o tipo e clique em cima de uma parede. Dá para trocar o tipo depois, a qualquer momento.</p>
+
+    <div class="tituloLat">Blocos</div>
+    <select id="catBloco"></select>
+    <div id="gradeBlocos"></div>
+    <p class="dica">Clique no bloco e depois na planta. Ou arraste na planta para já nascer no tamanho que você quer.</p>
+    <button id="btOrganizar" title="Reposiciona os móveis dentro do cômodo de cada um, sem sobrepor nada">🧩 Organizar objetos</button>
+    <p class="dica">Redistribui os móveis dentro do cômodo onde cada um está, sem sobrepor paredes nem uns aos outros. Tomadas, interruptores e portas não se movem.</p>
+
+    <div class="tituloLat">Como usar</div>
+    <ul class="ajuda">
+      <li>Arraste para mover; use as alças dos cantos para redimensionar.</li>
+      <li>Roda do mouse = zoom · arrastar o vazio = mover a vista.</li>
+      <li><kbd>Del</kbd> apaga · <kbd>Esc</kbd> cancela · <kbd>Ctrl+D</kbd> duplica.</li>
+      <li><kbd>Shift</kbd> ao desenhar parede trava na horizontal/vertical.</li>
+    </ul>
+  </aside>
+
+  <div id="palco">
+    <svg id="svg" xmlns="http://www.w3.org/2000/svg">
+      <g id="world">
+        <g id="gGrade"></g>
+        <g id="gParedePreta"></g>
+        <g id="gParedeBranca"></g>
+        <g id="gVaos"></g>
+        <g id="gItens"></g>
+        <g id="gTextos"></g>
+        <g id="gCotas"></g>
+        <g id="gPreview"></g>
+        <g id="gSel"></g>
+      </g>
+    </svg>
+    <div id="status"><span id="stCoord">—</span><span id="stTool">Selecionar</span></div>
+  </div>
+
+  <aside id="props">
+    <div class="tituloLat">Propriedades</div>
+    <div id="formProps"><p class="vazio">Nada selecionado.<br>Clique em uma parede, porta, bloco, texto ou cota.</p></div>
+  </aside>
+</main>
+
+<input type="file" id="arqJson" accept=".json,application/json" hidden>
+<script src="app.js"></script>
+</body>
+</html>

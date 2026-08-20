@@ -1,0 +1,113 @@
+:root{
+  --bg:#eef0f3;
+  --painel:#ffffff;
+  --linha:#d7dae0;
+  --texto:#1d2129;
+  --suave:#6b7280;
+  --azul:#2f5bd6;
+  --azulClaro:#e7edfd;
+  --perigo:#c0392b;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  font:14px/1.4 "Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--texto);background:var(--bg);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+
+/* ---------- topo ---------- */
+#topo{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:8px 14px;background:var(--painel);border-bottom:1px solid var(--linha);
+}
+.marca{font-weight:700;font-size:15px;letter-spacing:.2px}
+.barra{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.barra .sep{width:1px;height:20px;background:var(--linha);margin:0 4px}
+button{
+  font:inherit;padding:6px 10px;border:1px solid var(--linha);border-radius:7px;
+  background:#fff;color:var(--texto);cursor:pointer;white-space:nowrap;
+}
+button:hover{background:#f4f6f9}
+button:active{transform:translateY(1px)}
+button.perigo{color:var(--perigo);border-color:#eccac4}
+button:disabled{opacity:.4;cursor:default}
+.chk{display:flex;align-items:center;gap:5px;color:var(--suave);cursor:pointer;user-select:none}
+
+/* ---------- layout ---------- */
+main{flex:1;display:flex;min-height:0}
+aside{
+  width:236px;flex:0 0 236px;background:var(--painel);
+  border-right:1px solid var(--linha);padding:10px;overflow:auto;
+}
+#props{border-right:none;border-left:1px solid var(--linha);width:250px;flex-basis:250px}
+.tituloLat{
+  font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--suave);
+  margin:8px 2px 6px;font-weight:700;
+}
+.ferr{display:block;width:100%;text-align:left;margin-bottom:4px}
+.ferr b{
+  display:inline-block;width:18px;height:18px;line-height:18px;text-align:center;
+  background:#f0f2f6;border-radius:4px;font-size:11px;margin-right:7px;color:var(--suave);
+}
+.ferr.ativa{background:var(--azulClaro);border-color:#b9caf5;color:var(--azul);font-weight:600}
+.ferr.ativa b{background:var(--azul);color:#fff}
+#ferramentas select{
+  width:100%;font:inherit;font-size:12.5px;padding:5px 6px;
+  border:1px solid var(--linha);border-radius:6px;background:#fff;margin-bottom:6px;
+}
+.dica{margin:4px 2px 0;color:var(--suave);font-size:11px;line-height:1.35}
+#btOrganizar{width:100%;margin-top:10px;font-weight:600}
+#gradeBlocos{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.blk{
+  font-size:11px;line-height:1.2;padding:6px 3px;text-align:center;
+  border:1px solid var(--linha);border-radius:6px;background:#fff;cursor:pointer;
+}
+.blk:hover{background:#f4f6f9}
+.blk.ativa{background:var(--azulClaro);border-color:#b9caf5;color:var(--azul);font-weight:600}
+.ajuda{margin:0;padding-left:16px;color:var(--suave);font-size:12px}
+.ajuda li{margin-bottom:5px}
+kbd{background:#f0f2f6;border:1px solid var(--linha);border-bottom-width:2px;border-radius:4px;padding:0 4px;font-size:11px}
+
+/* ---------- palco ---------- */
+#palco{flex:1;position:relative;min-width:0;background:#fff}
+#svg{width:100%;height:100%;display:block;cursor:default;touch-action:none;background:#fff}
+#svg.mao{cursor:grab}
+#svg.desenhando{cursor:crosshair}
+#status{
+  position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;
+  padding:4px 10px;font-size:12px;color:var(--suave);
+  background:rgba(255,255,255,.9);border-top:1px solid var(--linha);pointer-events:none;
+}
+
+/* ---------- propriedades ---------- */
+#formProps .grupo{margin-bottom:10px}
+#formProps label{display:block;font-size:11px;color:var(--suave);margin-bottom:3px}
+#formProps input[type=text],#formProps input[type=number],#formProps select,#formProps textarea{
+  width:100%;font:inherit;padding:5px 7px;border:1px solid var(--linha);border-radius:6px;background:#fff;
+}
+#formProps textarea{resize:vertical;min-height:48px}
+.dupla{display:flex;gap:6px}
+.dupla>div{flex:1}
+.tipoSel{font-size:12px;color:var(--azul);font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.acoes{display:flex;gap:6px;margin-top:12px}
+.acoes button{flex:1}
+.vazio{color:var(--suave);font-size:12.5px}
+.nota{color:var(--suave);font-size:11px;margin-top:6px}
+
+/* ---------- telas estreitas ---------- */
+@media (max-width: 900px){
+  aside{width:170px;flex-basis:170px}
+  #props{width:190px;flex-basis:190px}
+}
+@media (max-width: 680px){
+  #props{display:none}
+  aside{width:150px;flex-basis:150px}
+}
+
+/* ---------- impressão ---------- */
+@media print{
+  #topo,#ferramentas,#props,#status{display:none!important}
+  body,main,#palco{display:block;height:auto;overflow:visible}
+  #svg{width:100%;height:auto}
+}
