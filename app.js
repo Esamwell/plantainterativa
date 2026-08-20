@@ -355,8 +355,63 @@ function migrar(d) {
   return d;
 }
 
+/* Ponto de partida publicado: o último layout mobiliado, salvo pelo botão
+   "Salvar JSON" e embutido aqui. É o que abre em qualquer aparelho, mesmo
+   sem nada salvo naquele navegador. O botão "Planta original" continua
+   voltando pra planta nua, sem móveis, tal como foi enviada no início. */
+function plantaPadrao() {
+  return migrar({
+  "versao": 1,
+  "paredes": [
+    { "id": "w_topo",  "x1": 1,  "y1": 1,  "x2": 79, "y2": 1,  "t": 2 },
+    { "id": "w_dir",   "x1": 79, "y1": 1,  "x2": 79, "y2": 79, "t": 2 },
+    { "id": "w_baixo", "x1": 1,  "y1": 79, "x2": 79, "y2": 79, "t": 2 },
+    { "id": "w_esq",   "x1": 1,  "y1": 1,  "x2": 1,  "y2": 79, "t": 2 },
+    { "id": "w_sala",  "x1": 59, "y1": 1,  "x2": 59, "y2": 33, "t": 2 },
+    { "id": "w_div",   "x1": 38, "y1": 33, "x2": 79, "y2": 33, "t": 2 },
+    { "id": "w_recep", "x1": 38, "y1": 33, "x2": 38, "y2": 79, "t": 2 }
+  ],
+  "vaos": [
+    { "id": "p1", "tipo": "porta", "parede": "w_div", "pos": 1.2, "w": 12.5, "lado": 1, "dobra": "inicio", "ang": 90 },
+    { "id": "p2", "tipo": "porta", "parede": "w_baixo", "pos": 49.9, "w": 15.4, "lado": 1, "dobra": "fim", "ang": 90 },
+    { "id": "ve51u9x8", "tipo": "janela", "parede": "w_sala", "pos": 6.7, "w": 9, "lado": 1, "dobra": "inicio", "ang": 90 },
+    { "id": "vel37u8z", "tipo": "janela", "parede": "w_dir", "pos": 43.27632025200541, "w": 15, "lado": 1, "dobra": "inicio", "ang": 90 },
+    { "id": "vsc8zzdd", "tipo": "porta_correr", "parede": "w_sala", "pos": 18, "w": 12.5, "lado": 1, "dobra": "inicio", "ang": 90 }
+  ],
+  "itens": [
+    { "id": "i1", "tipo": "bloco", "bloco": "retangulo", "x": 3, "y": 19, "w": 7.000000000000001, "h": 46, "rot": 0, "rotulo": "" },
+    { "id": "iiuxs73u", "tipo": "bloco", "bloco": "cadeira", "x": 12, "y": 49, "w": 5, "h": 5, "rot": 90, "esp": 0, "rotulo": "" },
+    { "id": "ij0v8p4a", "tipo": "bloco", "bloco": "mesa_ret", "x": 36, "y": 9, "w": 12, "h": 7, "rot": 0, "esp": 0, "rotulo": "" },
+    { "id": "i50k7pvb", "tipo": "bloco", "bloco": "mesa_ret", "x": 7, "y": 9, "w": 12, "h": 7, "rot": 0, "esp": 0, "rotulo": "" },
+    { "id": "dvbzlpxt", "tipo": "bloco", "bloco": "cadeira", "x": 12, "y": 26, "w": 5, "h": 5, "rot": 90, "esp": 0, "rotulo": "" },
+    { "id": "d9jw29h7", "tipo": "bloco", "bloco": "cadeira", "x": 40, "y": 3, "w": 5, "h": 5, "rot": 0, "esp": 0, "rotulo": "" },
+    { "id": "dxhjh6l5", "tipo": "bloco", "bloco": "cadeira", "x": 12, "y": 38, "w": 5, "h": 5, "rot": 90, "esp": 0, "rotulo": "" },
+    { "id": "iqtpqofk", "tipo": "bloco", "bloco": "mesa_reuniao", "x": 62, "y": 13, "w": 15, "h": 5, "rot": 90, "esp": 0, "rotulo": "" },
+    { "id": "icqpe10w", "tipo": "bloco", "bloco": "rack", "x": 62, "y": 2, "w": 14, "h": 4, "rot": 0, "esp": 0, "rotulo": "" },
+    { "id": "i2vwi9rr", "tipo": "bloco", "bloco": "retangulo", "x": 58, "y": 49, "w": 17, "h": 5, "rot": 0, "esp": 0, "rotulo": "" },
+    { "id": "dfh4ke8h", "tipo": "bloco", "bloco": "retangulo", "x": 50, "y": 45, "w": 13, "h": 5, "rot": 90, "esp": 0, "rotulo": "" },
+    { "id": "idtdo2l3", "tipo": "bloco", "bloco": "cadeira", "x": 61, "y": 42, "w": 5, "h": 5, "rot": 20, "esp": 0, "rotulo": "" },
+    { "id": "i3mdyvyn", "tipo": "bloco", "bloco": "sofa2", "x": 36, "y": 62, "w": 15, "h": 8, "rot": 90, "esp": 0, "rotulo": "" },
+    { "id": "iwk9ob73", "tipo": "bloco", "bloco": "planta", "x": 71, "y": 71, "w": 6, "h": 6, "rot": 0, "esp": 0, "rotulo": "" },
+    { "id": "da7kh9tt", "tipo": "bloco", "bloco": "cadeira", "x": 11, "y": 3, "w": 5, "h": 5, "rot": 0, "esp": 0, "rotulo": "" }
+  ],
+  "textos": [
+    { "id": "t1", "x": -7, "y": 38, "txt": "ESTAÇÃO DE TRABALHO", "tam": 2.9, "rot": -90 },
+    { "id": "t2", "x": 85, "y": 16, "txt": "SALA DE REUNIÃO", "tam": 2.9, "rot": 90 },
+    { "id": "t3", "x": 86, "y": 55, "txt": "RECEPÇÃO", "tam": 3, "rot": 90 }
+  ],
+  "cotas": [
+    { "id": "c1", "x1": 1.8, "y1": 1, "x2": 61.1, "y2": 1, "off": -12.5, "texto": "0.59" },
+    { "id": "c2", "x1": 61.1, "y1": 1, "x2": 79, "y2": 1, "off": -12.5, "texto": "0.18" },
+    { "id": "c3", "x1": 1, "y1": 79.5, "x2": 1, "y2": 0.6, "off": -15, "texto": "0.81" },
+    { "id": "c4", "x1": 79, "y1": 33, "x2": 79, "y2": 0.6, "off": 14, "texto": "0.49" },
+    { "id": "c5", "x1": 79, "y1": 79.4, "x2": 79, "y2": 33, "off": 14, "texto": "0.56" }
+  ]
+  });
+}
+
 /* -------------------------------------------------------------- estado ---- */
-var doc = plantaOriginal();
+var doc = plantaPadrao();
 var sel = null, tool = 'selecionar', blocoAtual = 'retangulo';
 var view = { x: 60, y: 40, k: 5 };
 var pilha = [], pilhaR = [];
@@ -1340,8 +1395,12 @@ $('#arqJson').addEventListener('change', function (ev) {
 });
 $('#btImprimir').addEventListener('click', function () { window.print(); });
 $('#btOriginal').addEventListener('click', function () {
-  if (!confirm('Voltar para a planta original? Todas as alterações atuais serão perdidas.')) return;
+  if (!confirm('Voltar para a planta original, sem móveis (a planta bem do início)? As alterações atuais serão perdidas.')) return;
   marcar(); doc = plantaOriginal(); sel = null; commit(); enquadrar();
+});
+$('#btPadrao').addEventListener('click', function () {
+  if (!confirm('Voltar para o último layout publicado? As alterações atuais neste navegador serão perdidas.')) return;
+  marcar(); doc = plantaPadrao(); sel = null; commit(); enquadrar();
 });
 
 /* ------------------------------------------------------------ controles --- */

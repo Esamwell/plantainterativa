@@ -49,10 +49,22 @@ Roda do mouse = zoom · arrastar o vazio = mover a vista
 - **Salvar JSON** baixa o projeto; **Abrir JSON** carrega de volta. É o formato para guardar/versionar.
 - **PNG** e **SVG** exportam o desenho limpo (sem grade, sem seleção). O SVG abre no AutoCAD, Illustrator, Inkscape e Figma sem perder qualidade.
 - **Imprimir** → em "Destino" escolha *Salvar como PDF*.
-- **Planta original** volta tudo para a planta enviada, do zero.
+- **↺ Último publicado** volta para o layout publicado mais recente (o mesmo que abre em qualquer aparelho).
+- **↺ Planta original (sem móveis)** volta para a planta bem do início, nua, como foi enviada.
 
-O trabalho também fica salvo sozinho no navegador — se fechar e abrir de novo, continua de onde parou.
-Só não troque de computador ou de navegador contando com isso: para isso serve o **Salvar JSON**.
+## Por que no celular aparecia diferente do computador
+
+O trabalho fica salvo sozinho, mas **só dentro daquele navegador específico** (é a memória local dele, não um arquivo). Por isso, ao abrir em outro aparelho, ele não sabia o que você tinha editado no primeiro — e mostrava sempre o ponto de partida padrão da página.
+
+Não existe (ainda) sincronização automática entre aparelhos — esta ferramenta não tem um servidor/banco de dados por trás, só HTML/JS. O que existe é um **"último publicado"**: o layout que está embutido na própria página, e que é sempre o mesmo em qualquer navegador ou aparelho que abrir a página hospedada.
+
+Pra atualizar esse "publicado" com um novo layout seu:
+1. Edite a planta à vontade.
+2. Clique em **💾 Salvar JSON**.
+3. Me envie esse arquivo (ou coloque na pasta do projeto e me avise).
+4. Eu embuto esse layout como o novo padrão e publico — a partir daí, qualquer aparelho que abrir o link já mostra ele.
+
+O site publicado (o mesmo em qualquer aparelho) fica em: **https://plantainterativa.vercel.app**
 
 ## Unidades
 
