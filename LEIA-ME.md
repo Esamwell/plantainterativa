@@ -28,9 +28,9 @@ as duas portas, a bancada da estação de trabalho, a tomada isolada, o quadro d
 
 Depois de colocada, seleciona o vão e no painel da direita dá pra: trocar o tipo a qualquer momento (o dropdown "Tipo" reaproveita a mesma abertura), mudar largura e ângulo, e inverter o lado da dobradiça / sentido de abertura. Arrastando, o vão desliza pela parede ou pula pra outra.
 
-### Blocos (mobiliário, cozinha, banheiro, elétrica, outros)
+### Blocos (mobiliário, eletrônicos, cozinha, banheiro, elétrica, outros)
 
-Escolha a categoria e clique no bloco desejado (mesa, sofá, cama, pia, vaso sanitário, box, tomada, interruptor, ponto de luz, ar-condicionado, escada, seta de norte etc.), depois clique na planta — ou arraste pra já nascer do tamanho que você quiser. Com o bloco selecionado dá pra trocá-lo por outro do catálogo, redimensionar pelas alças, **girar 90°**, **espelhar**, e escrever um rótulo.
+Escolha a categoria e clique no bloco desejado (mesa, sofá, cama, pia, vaso sanitário, box, televisão, computador, notebook, impressora, tomada, interruptor, ponto de luz, ar-condicionado, escada, seta de norte etc.), depois clique na planta — ou arraste pra já nascer do tamanho que você quiser. Com o bloco selecionado dá pra trocá-lo por outro do catálogo, redimensionar pelas alças, **girar 90°**, **espelhar**, e escrever um rótulo.
 
 ### 🧩 Organizar objetos
 

@@ -21,6 +21,7 @@ var COR = {
   louca:     [242, 242, 246],
   metal:     [172, 176, 182],
   verde:     [92, 138, 84],
+  tela:      [46, 49, 56],
   teto:      [248, 247, 244]
 };
 
@@ -52,7 +53,17 @@ var MAT = {
   box:         { a: 20,  c: 'vidro', f: 'box' },
   banheira:    { a: 5,   c: 'louca' },
   escada:      { a: 2,   c: 'movel', f: 'escada' },
-  planta:      { a: 8,   c: 'verde', f: 'cilindro' }
+  planta:      { a: 8,   c: 'verde', f: 'cilindro' },
+  /* eletrônicos — b = altura da base (ficam em cima de mesa/rack/parede) */
+  tv:          { a: 7,   b: 5,   c: 'tela' },
+  monitor:     { a: 4,   b: 7.5, c: 'tela' },
+  computador:  { a: 4,   b: 7.5, c: 'tela',  f: 'computador' },
+  gabinete:    { a: 4.5,           c: 'metal' },
+  notebook:    { a: 3,   b: 7.5, c: 'tela',  f: 'notebook' },
+  impressora:  { a: 3.5, b: 7.5, c: 'louca' },
+  telefone:    { a: 1.2, b: 7.5, c: 'louca' },
+  projetor:    { a: 2.5, b: 7.5, c: 'metal' },
+  tela_projecao:{ a: 12, b: 10,  c: 'tela' }
 };
 /* símbolos que só fazem sentido no 2D (elétrica, anotações) */
 var PULAR = { norte:1, hachura:1, coifa:1, ponto_luz:1, luminaria:1, spot:1,
@@ -249,6 +260,19 @@ function movel(faces, it) {
   if (it.tipo !== 'bloco' || PULAR[it.bloco]) return;
   var m = MAT[it.bloco] || { a: 8, c: 'movel' };
   var rgb = COR[m.c] || COR.movel, alfa = m.c === 'vidro' ? 0.4 : 1;
+  var b = m.b || 0;                       // altura em que a peça se apoia
+
+  if (m.f === 'computador') {
+    prisma(faces, subRet(it, 0.05, 0, 0.95, 0.13), b, b + m.a, rgb);            // monitor
+    prisma(faces, subRet(it, 0.05, 0.1, 0.95, 0.16), b, b + 0.3, COR.metal);    // pé
+    prisma(faces, subRet(it, 0.12, 0.55, 0.74, 0.85), b, b + 0.35, COR.metal);  // teclado
+    return;
+  }
+  if (m.f === 'notebook') {
+    prisma(faces, subRet(it, 0, 0, 1, 0.1), b, b + m.a, rgb);                   // tela
+    prisma(faces, subRet(it, 0, 0.45, 1, 1), b, b + 0.35, COR.metal);           // base
+    return;
+  }
 
   if (m.f === 'cilindro') {
     var cx = it.x + it.w/2, cy = it.y + it.h/2, n = 20, base = [];
@@ -288,7 +312,7 @@ function movel(faces, it) {
       prisma(faces, subRet(it, 0, d/deg, 1, (d+1)/deg), 0, 2 + d * 2.2, rgb);
     return;
   }
-  prisma(faces, cantosBloco(it), 0, m.a, rgb, alfa);
+  prisma(faces, cantosBloco(it), b, b + m.a, rgb, alfa);
 }
 
 /* -------------------------------------------------------------- câmera -- */

@@ -199,6 +199,46 @@ var BLOCOS = {
     g.appendChild(_r(0, h * 0.35, w, h * 0.65));
     g.appendChild(_l(w * 0.2, 0, w * 0.8, 0, 1.4)); }},
 
+  /* ---------------- eletrônicos ---------------- */
+  tv: { cat: 'Eletrônicos', nome: 'Televisão', w: 12, h: 1.6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));                          // a tela, vista de cima
+    g.appendChild(_l(w * 0.32, h, w * 0.68, h, 1.4));       // base / suporte
+    g.appendChild(_l(w * 0.5, 0, w * 0.5, h, 0.7)); }},
+  monitor: { cat: 'Eletrônicos', nome: 'Monitor', w: 5.5, h: 1.4, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_l(w * 0.35, h, w * 0.65, h, 1.3)); }},
+  computador: { cat: 'Eletrônicos', nome: 'Computador (monitor + teclado)', w: 6, h: 5, d: function (g, w, h) {
+    g.appendChild(_r(w * 0.05, 0, w * 0.9, h * 0.26));      // monitor
+    g.appendChild(_l(w * 0.38, h * 0.26, w * 0.62, h * 0.26, 1.3));
+    g.appendChild(_r(w * 0.12, h * 0.55, w * 0.62, h * 0.3, 0.3));  // teclado
+    for (var i = 1; i < 4; i++)
+      g.appendChild(_l(w * 0.12, h * (0.55 + 0.3 * i / 4), w * 0.74, h * (0.55 + 0.3 * i / 4), 0.5));
+    g.appendChild(_e(w * 0.85, h * 0.7, w * 0.09, h * 0.12)); }},   // mouse
+  gabinete: { cat: 'Eletrônicos', nome: 'Gabinete (CPU)', w: 2.2, h: 4.5, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_l(0, h * 0.22, w, h * 0.22, 0.7));
+    g.appendChild(_c(w * 0.5, h * 0.12, Math.min(w, h) * 0.07)); }},
+  notebook: { cat: 'Eletrônicos', nome: 'Notebook', w: 4.4, h: 4.6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h * 0.48));                   // tela
+    g.appendChild(_r(0, h * 0.48, w, h * 0.52));            // teclado
+    g.appendChild(_r(w * 0.14, h * 0.56, w * 0.72, h * 0.24, 0.25));
+    g.appendChild(_r(w * 0.36, h * 0.84, w * 0.28, h * 0.11, 0.2)); }},
+  impressora: { cat: 'Eletrônicos', nome: 'Impressora', w: 5, h: 4.2, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.3));
+    g.appendChild(_r(w * 0.12, h * 0.08, w * 0.76, h * 0.2, 0.2));  // bandeja
+    g.appendChild(_l(w * 0.1, h * 0.62, w * 0.9, h * 0.62, 0.7)); }},
+  telefone: { cat: 'Eletrônicos', nome: 'Telefone', w: 2.8, h: 2.6, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.25));
+    g.appendChild(_r(w * 0.16, h * 0.12, w * 0.68, h * 0.3, 0.2));
+    g.appendChild(_c(w * 0.5, h * 0.7, Math.min(w, h) * 0.16)); }},
+  projetor: { cat: 'Eletrônicos', nome: 'Projetor', w: 3.6, h: 3, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h, 0.25));
+    g.appendChild(_c(w * 0.5, h * 0.62, Math.min(w, h) * 0.22));
+    g.appendChild(_l(w * 0.2, h * 0.16, w * 0.8, h * 0.16, 0.7)); }},
+  tela_projecao: { cat: 'Eletrônicos', nome: 'Tela de projeção', w: 16, h: 1.2, d: function (g, w, h) {
+    g.appendChild(_r(0, 0, w, h));
+    g.appendChild(_l(0, h * 0.5, w, h * 0.5, 0.6)); }},
+
   /* ---------------- cozinha e serviço ---------------- */
   pia_cozinha: { cat: 'Cozinha', nome: 'Pia de cozinha', w: 14, h: 6, d: function (g, w, h) {
     g.appendChild(_r(0, 0, w, h));
