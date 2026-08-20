@@ -1,23 +1,27 @@
 // Guarda/lê o estado atual da planta no Vercel Blob — sem banco de dados.
 // GET  -> devolve o último estado salvo (ou {ok:true, vazio:true} se nunca salvou nada)
 // POST -> recebe o JSON da planta e sobrescreve o arquivo salvo
-const { put, head } = require('@vercel/blob');
+//
+// Autenticação: funciona tanto com um projeto conectado via OIDC (padrão
+// atual da Vercel — usa BLOB_STORE_ID + token OIDC injetado automaticamente
+// em cada execução) quanto com o token estático BLOB_READ_WRITE_TOKEN
+// (projetos mais antigos). Não force nenhum dos dois: deixa o SDK decidir.
+const { put, head, BlobNotFoundError } = require('@vercel/blob');
 
 const CAMINHO = 'planta-atual.json';
 
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
 
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    res.status(500).json({ ok: false, erro: 'BLOB_READ_WRITE_TOKEN não configurado neste projeto Vercel.' });
-    return;
-  }
-
   try {
     if (req.method === 'GET') {
       var info;
-      try { info = await head(CAMINHO); }
-      catch (e) { res.status(200).json({ ok: true, vazio: true }); return; }
+      try {
+        info = await head(CAMINHO);
+      } catch (e) {
+        if (e instanceof BlobNotFoundError) { res.status(200).json({ ok: true, vazio: true }); return; }
+        throw e;
+      }
       var sep = info.url.indexOf('?') >= 0 ? '&' : '?';
       var r = await fetch(info.url + sep + 't=' + Date.now(), { cache: 'no-store' });
       if (!r.ok) { res.status(200).json({ ok: true, vazio: true }); return; }
